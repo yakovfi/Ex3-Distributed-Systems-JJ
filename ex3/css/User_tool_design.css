@@ -1,0 +1,89 @@
+
+body,
+html {
+   background-color: #adb3b8;
+   width: 1300px;
+    margin: auto;
+    height: 1030px;
+    position: static;
+
+}
+h1 {
+    background-color: red;
+  }
+/* .first{
+    width: 1300px;
+    height: 80px;
+    padding-top: 0px;
+    margin: auto;
+    padding: initial;
+    background-color: #2f5777;
+    position: static;
+    top: 720px;
+}
+#picture{
+    
+     width: 200px;
+      height: 150px;
+      float: right;
+    
+}
+
+.container { 
+    width: 1300px;
+    height: 150px;
+    padding-top: 0px;
+    padding: initial;
+    background-color: #dee4e9;
+  
+    top: 720px;
+}
+.main {
+    width: 1300px;
+    margin: auto;
+    height: 1330px;
+    background-color: #97adbe;
+    position: static;
+}
+ #Name{
+    font-size: 25px;
+    margin: 10px;
+    font-family: Pacifico;
+    position: relative;
+    color:#dee4e9;
+      
+ }
+
+ #Name2{
+    font-size: 25px;
+    margin: 10px;
+    font-family: Pacifico;
+    position: relative;
+    color:#284155;
+      
+ }
+
+.buttonClass{
+    margin-left: 1000px;
+    margin: 30px;
+    width: 62px;
+    height: 30px;
+
+    background-color: #4b667a;
+    border-radius: 50px;
+    color: white;
+    box-shadow: 2px 2px 1px 1px rgb(0, 0, 0);
+    float:inherit;
+}
+
+
+.buttonClass:hover {
+    background-color: #19232b;
+}
+.wrapper {
+    text-align: center;
+    justify-content: center;
+     align-items: center;
+     padding-left: 50px;
+}
+ */
