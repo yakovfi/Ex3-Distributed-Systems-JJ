@@ -41,6 +41,11 @@ $(document).ready(function () {
         "duration": $("#Duration").val(),
         "price": $("#price").val(),
         "id": $("#id_field").val(),
+        "guide": {
+          "name": $('#gname').val(),
+          "email": $('#gemail').val(),
+          "cellular": $('#gcell').val(),
+        }
       }),
       processData: false,
       // dataType: 'json', // what type of data do we expect back from the server
