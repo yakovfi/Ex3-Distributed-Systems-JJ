@@ -5,24 +5,24 @@ const dataPath = './data/users.json';
 // helper methods
 const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
     fs.readFile(filePath, encoding, (err, data) => {
-            if (err) {
-                console.log(err);
-            }
-            if (!data) data="{}";
-            callback(returnJson ? JSON.parse(data) : data);
-       });
+        if (err) {
+            console.log(err);
+        }
+        if (!data) data = "{}";
+        callback(returnJson ? JSON.parse(data) : data);
+    });
 };
 
 const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
 
-        fs.writeFile(filePath, fileData, encoding, (err) => {
-            if (err) {
-                console.log(err);
-            }
+    fs.writeFile(filePath, fileData, encoding, (err) => {
+        if (err) {
+            console.log(err);
+        }
 
-            callback();
-        });
-    };
+        callback();
+    });
+};
 
 
 module.exports = {
@@ -31,21 +31,22 @@ module.exports = {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
                 console.log(err);
-                res.sendStatus(500);                 
+                res.sendStatus(500);
             }
             else
-                res.send(!data? JSON.parse("{}") : JSON.parse(data));
+                res.send(!data ? JSON.parse("{}") : JSON.parse(data));
         });
     },
-  
+
     // CREATE
-   create_user: function (req, res) {
+    createTour: function (req, res) {
 
         readFile(data => {
-
+            console.log(req.body)
             // add the new user
-            if (!req.body.id) return res.sendStatus(500);   
+            if (!req.body.id) return res.sendStatus(500);
             data[req.body.id] = req.body;
+
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send('new user added');
