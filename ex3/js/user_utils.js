@@ -3,6 +3,9 @@ $(document).ready(function () {
   $("form[name='user_form']").validate({
     // Specify validation rules
     rules: {
+      all:{
+        required: true 
+      },
       "name": {
         minlength: 5
       },

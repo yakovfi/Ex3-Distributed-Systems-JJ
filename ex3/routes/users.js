@@ -30,7 +30,6 @@ module.exports = {
     read_users: function (req, res) {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
-                console.log(err);
                 res.sendStatus(500);
             }
             else
@@ -44,7 +43,10 @@ module.exports = {
         readFile(data => {
             console.log(req.body)
             // add the new user
-            if (!req.body.id) return res.sendStatus(500);
+            if (!req.body.id || !req.body.price || !req.body.start_date || !req.body.duration || !req.body.guide.name ||
+                 !req.body.guide.email || !req.body.guide.cellular){
+                return res.sendStatus(500);  
+            } 
             data[req.body.id] = req.body;
 
 
