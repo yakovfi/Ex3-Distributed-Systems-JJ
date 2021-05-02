@@ -6,23 +6,13 @@ const express = require('express'),
 const port = 3001;
 
 const app = express();
+app.use(express.static(__dirname + '/public'));
 
 app.use('/main', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/list_users', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/add_user', express.static(path.join(__dirname, 'html/add_user_form.html')));//Upload file add_user_form.html
-
 app.use('/js', express.static(path.join(__dirname, 'js')));
-
-/*app.get('/',(req,res) => {fs.readFile('html/index.html',  (err, html) => {
-    if (err) {
-        throw err; 
-    }       
-    
-    res.writeHeader(200, {"Content-Type": "text/html"});  
-    res.write(html);  
-    res.end();  
-    })
-});*/
+app.use('/myCss', express.static(path.join(__dirname, 'css')));
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 

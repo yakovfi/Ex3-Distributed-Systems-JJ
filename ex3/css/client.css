@@ -1,0 +1,144 @@
+
+body,
+html {
+   background-color: #adb3b8;
+   width: 1300px;
+    margin: auto;
+    height: 1030px;
+    position: static;
+
+}
+.first{
+    width: 1300px;
+    height: 40px;
+    padding-top: 0px;
+    margin: auto;
+    padding: initial;
+    background-color: #2f5777;
+    position: static;
+    top: 720px;
+}
+#picture{
+    
+     width: 200px;
+      height: 100px;
+      float: right;
+    
+}
+
+.container { 
+    width: 1300px;
+    height: 100px;
+    padding-top: 0px;
+    margin: auto;
+    padding: initial;
+    background-color: #dee4e9;
+    position: static;
+    top: 720px;
+}
+.main {
+    width: 1300px;
+    margin: auto;
+    height: 1330px;
+    background-color: #97adbe;
+    position: static;
+}
+
+table, td {
+  border: 1px solid white;
+}
+.button {
+    width: 78px;
+    height: 40px;
+    font-size: 255px;
+    cursor: pointer;
+    border: none;
+    border-top-left-radius: 90% 20px;
+    border-top-right-radius: 90% 20px;
+    border-bottom-left-radius: 80% 30px;
+    border-bottom-right-radius: 80% 30px;
+}
+
+#myTable{
+    font-size: 20px;
+    margin: 0px;
+    padding: 0;
+    font-family: Pacifico;
+    position: relative;
+    color:#111e29;
+    top: 20px;
+    left: 10px;
+    
+}
+
+#myTable2{
+    font-size: 15px;
+   margin: 0px;
+    padding: 0px;
+    font-family: Pacifico;
+    position: relative;
+    color:#2e2926;
+     float: right;
+    background-color:#b8d4e9;
+    
+    top: 20px;
+    right: 10px;
+}
+
+#Date{
+    
+    font-size: 25px;
+    margin: 0;
+    font-family: Pacifico;
+    position: relative;
+    color:#dee4e9;
+    float: right;   /* הזזה ימינה */
+    
+}
+ #Name{
+    font-size: 25px;
+    margin: 10px;
+    font-family: Pacifico;
+    position: relative;
+    color:#dee4e9;
+      
+ }
+ #slct{
+      margin: 10px;
+     
+      width: 500px;
+      height: 40px;
+      background-color:#f4faff;
+    
+     
+ }
+
+#Find_countries{
+    margin: 10px;
+    width: 62px;
+    height: 30px;
+    background-color: #4b667a;
+    border-radius: 50px;
+    color: white;
+    box-shadow: 2px 2px 1px 1px rgb(0, 0, 0);
+    
+}
+
+
+#Find_countries:hover {
+    background-color: #19232b;
+}
+.details{
+    margin: 10px;
+    height: 30px;
+    background-color: #4b667a;
+    border-radius: 50px;
+    color: white;
+    box-shadow: 2px 2px 1px 1px rgb(0, 0, 0);
+    
+}
+.details:hover {
+    background-color: #222f38;
+}
+
+
