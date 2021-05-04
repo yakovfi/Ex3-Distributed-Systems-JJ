@@ -44,9 +44,9 @@ module.exports = {
             console.log(req.body)
             // add the new user
             if (!req.body.id || !req.body.price || !req.body.start_date || !req.body.duration || !req.body.guide.name ||
-                 !req.body.guide.email || !req.body.guide.cellular){
-                return res.sendStatus(500);  
-            } 
+                !req.body.guide.email || !req.body.guide.cellular) {
+                return res.sendStatus(500);
+            }
             data[req.body.id] = req.body;
 
 

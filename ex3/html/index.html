@@ -4,44 +4,38 @@
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="myCss/client.css">
+  <script src="js/index.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      $("button").click(function () {
-        $.ajax({
-          url: "/users",
-          type: 'get',
-          success: function (result) {
-            const test = { a: 1, b: 2, c: 3 };
 
-            for (const [key, value] of Object.entries(result)) {
-              console.log("key: " + key);
-            }
-
-            console.log("size" + result.Europe1.duration);
-            $("#div1").html(JSON.stringify(result));
-            console.log(result);
-          },
-          error: function (err) {
-            console.log("err", err);
-          }
-        });
-
-      });
-    });
-
-  </script>
 </head>
 
 <body>
-
-  <div id="div1">
-    <h2>Let jQuery AJAX Change This Text</h2>
+  <div class="first">
+    <div id="div1">
+      <h2>Using Shuru Turu</h2>
+    </div>
   </div>
 
-  <button>Get External Content</button>
-  <button id=Find_countries>Find</button>
 
+  <!-- <button>Get External Content</button> -->
+
+
+  <div class="container">
+    <button id=Find_countries>Adding a new trip </button>
+    <table id="myTable2">
+
+    </table>
+
+    <table id="myTable">
+      <tr></tr>
+    </table>
+    <br>
+
+    <button id=Find_countries>Adding a new trip </button>
+    <!-- <input type="button" class="btn " value="Delete" onclick="deleteTrip()"> -->
+
+    <!-- <input type="button" value="Generate a table!!!!!!!!!!!!!!!!!!!!!." onclick="generate_table()"> -->
+  </div>
 </body>
 
 </html>

@@ -1,10 +1,12 @@
+
+
 $(document).ready(function () {
 
   $("form[name='user_form']").validate({
     // Specify validation rules
     rules: {
-      all:{
-        required: true 
+      all: {
+        required: true
       },
       "name": {
         minlength: 5
@@ -19,10 +21,10 @@ $(document).ready(function () {
     },
     // Specify validation error messages
     messages: {
-      name: "Your name must be at least 5 characters long",
+      name: " least 5 characters long!",
       id_field: {
         digits: "Please enter only digits",
-        minlength: "Your name must be at least 6 characters long"
+        minlength: "least 6 characters long!"
       },
       email: "email structure is some@domain "
     }
@@ -68,3 +70,6 @@ $(document).ready(function () {
   });
 
 });
+function backToMain() {
+  window.location.replace('/main');
+}

@@ -13,7 +13,6 @@ app.use('/list_users', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/add_user', express.static(path.join(__dirname, 'html/add_user_form.html')));//Upload file add_user_form.html
 app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/myCss', express.static(path.join(__dirname, 'css')));
-
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 //restfull 
