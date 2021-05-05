@@ -21,10 +21,10 @@ $(document).ready(function () {
     },
     // Specify validation error messages
     messages: {
-      name: " least 5 characters long!",
+      name: "At least 5 characters long!",
       id_field: {
         digits: "Please enter only digits",
-        minlength: "least 6 characters long!"
+        minlength: "At least 6 characters long!"
       },
       email: "email structure is some@domain "
     }

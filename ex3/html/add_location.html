@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="myCss/client.css">
+  <script src="js/index.js"></script>
+
+
+</head>
+<body>
+
+    <div class="first">
+        <h2>Add New Location</h2>
+    </div>
+    <!-- OUR FORM -->
+    <div class="container">
+        <form id="user_form" name="user_form" method="POST">
+
+
+            <!-- NAME -->
+            <div id="name-group" class="form-group">
+                <label for="name_location">Name Of The Location:</label>
+                <input type="text" class="form-control" name="location_name" id="location_name" placeholder="write Location's Name here"
+                    required size=23px>
+                <!-- errors will go here -->
+            </div>
+
+            <!-- COUNTRY -->
+            <div id="name-group" class="form-group">
+                <label for="country">Country:</label>
+                <input type="text" class="form-control" name="country_name" id="country_name"
+                    placeholder="write Country date here" required>
+                <!-- errors will go here -->
+            </div>
+
+
+            <button type="submit" class="btn ">Submit<span class="submit"></span></button>
+            <input type="button" class="btn " value="Back" onclick="backToMain()">
+
+        </form>
+    </div>
+
+</body>
+
+</html>

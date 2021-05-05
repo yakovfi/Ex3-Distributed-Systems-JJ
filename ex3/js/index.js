@@ -1,4 +1,3 @@
-
 let arr = [];
 let tempIndex;
 let IdsTourArr = [];
@@ -6,6 +5,11 @@ let pricesArr = [];
 let StartDateArr = [];
 let durationsArr = [];
 let i = 0;
+
+function backToMain() {
+    window.location.replace('/main');
+}
+
 $(document).ready(function () {
     $.ajax({
         url: "/users",
@@ -72,12 +76,15 @@ $(document).ready(function () {
             // alert(nameId);
             countIndex = 0;
             cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"// id-s??? לבדוק אם
-            while (res[nameId].path[countIndex].name !== undefined) {
+            while (res[nameId].path[countIndex] !== undefined) {
                 cell1.innerHTML +=
                     "name: " + res[nameId].path[countIndex].name + "," + "  country: " + res[nameId].path[countIndex].country + "<br />" + "<br />";
                 countIndex++;
-
             }
+            $("#" + id_s).click(() => {
+                window.location.replace('/add_location');
+                $.ajax();
+            });
             // $('#myTable2').replaceWith(table);
         }
         ));
@@ -122,7 +129,7 @@ $(document).ready(function () {
                     url: tempUrl,
                     traditional: true,
                     success: function () {
-                        alert("success");
+
                     },
                     error: function () {
                         alert("Cannot access to JSON");
