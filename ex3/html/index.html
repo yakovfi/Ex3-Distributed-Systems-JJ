@@ -21,7 +21,20 @@
 
 
   <div class="container">
-    <button id=Find_countries>Adding a new trip </button>
+
+    <select name="sorts_type" id="sorts_type">
+      <option value="ID">ID</option>
+      <option value="Start_Date">Start_Date</option>
+      <option value="Duration">Duration</option>
+      <option value="Price">Price</option>
+    </select>
+    
+    <input type="radio" name="Increasing" id="Increasing" > Increasing
+    <input type="radio" name="Increasing" id="Decreasing"> Decreasing
+
+    <button class=sorts_type>Sort the Info</button>
+
+    <button id=Adding_new_Trip>Adding a new trip</button>
     <table id="myTable2">
 
     </table>
@@ -31,7 +44,7 @@
     </table>
     <br>
 
-    <button id=Find_countries>Adding a new trip </button>
+    <button id=Adding_new_Trip>Adding a new trip </button>
     <!-- <input type="button" class="btn " value="Delete" onclick="deleteTrip()"> -->
 
     <!-- <input type="button" value="Generate a table!!!!!!!!!!!!!!!!!!!!!." onclick="generate_table()"> -->

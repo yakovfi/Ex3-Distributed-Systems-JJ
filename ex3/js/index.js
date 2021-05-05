@@ -6,6 +6,11 @@ let StartDateArr = [];
 let durationsArr = [];
 let i = 0;
 
+let ID = 1;
+let START_DATE = 2;
+let DURATION = 3;
+let PRICE = 4;
+
 function backToMain() {
     window.location.replace('/main');
 }
@@ -19,6 +24,7 @@ $(document).ready(function () {
             let i = 0;
             for (const [key, value] of Object.entries(result)) {
                 arr[i] = key;
+                console.log(key);
                 i++;
             }
             dataTrip(result);
@@ -30,20 +36,22 @@ $(document).ready(function () {
         }
     });
 
-    $("button").click(function () {
+    $("#Adding_new_Trip").click(function () {
         window.location.replace('/add_user');
     });
     // -----------------------------------------------------------------------
     function dataTrip(res) {
 
         var pressedId;
-        for (let i = 0, a = 0, b = 1000, c = 100000, d = 10000000; i < arr.length; i++, a++, b++, c++, d++) {
+        let i = 0, a = 0, b = 1000, c = 100000, d = 10000000;
+        var table = document.getElementById("myTable");
+        let nameId = arr[i];
 
-            var table = document.getElementById("myTable");
+        for (; i < arr.length; i++, a++, b++, c++, d++) {
             var row = table.insertRow(1);
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
-            let nameId = arr[i];
+            nameId = arr[i];
 
             cell1.innerHTML =
                 "id: " + res[nameId].id + "<br />" + "<br />" +
@@ -57,14 +65,44 @@ $(document).ready(function () {
                 "<button class= details id=" + d + ">Editing the trip details </button>" + "<br />";
             pressedId = $(this).attr('id');
             tempIndex = arr[i];
-            deleteTrip(a);
-            DetailsOfTheGuide(b, res, nameId);
-            trackView(c, res, nameId);
+
         }
+        $(".sorts_type").click(() => {
+
+            let type;
+            select = document.getElementById("sorts_type");
+            radio = document.getElementsByName("Increasing");
+            radio.forEach(element => {
+                if (element.checked)
+                    type = element.id;
+            });
+            option = select.options[select.selectedIndex].value;
+
+            if (option == "ID") {
+                sorting(res, type, ID, nameId);
+                console.log(res);
+            }
+            if (option == "Price") {
+                sorting(res, type, price, nameId);
+            }
+            if (option == "Duration") {
+                sorting(res, type, DURATION, nameId);
+            }
+            if (option == "Start_Date") {
+                sorting(res, type, START_DATE, nameId);
+            }
+
+            // console.log(option);
+        }
+        )
+        deleteTrip(a);
+        DetailsOfTheGuide(b, res, nameId);
+        trackView(c, res, nameId);
     }
     function trackView(id_s, res, nameId) {
         let d = 'idd';
         if ($("#" + id_s).click(function () {
+
             $('#myTable2').show();
             var table = document.getElementById("myTable2");
             if (table.rows.length > 0) {
@@ -141,15 +179,58 @@ $(document).ready(function () {
     }
 });
 //--------------------------------------------------------
-function sorting(arrSort, type, parameter) {
+function sorting(arrSort, type, field, nameId) {
+
     let resultSort = [];
     let temp;
-    for (let i = 0; i < arrSort.length; i++) {
-        temp = arrSort[i];
-        for (let j = 0; j < arrSort.length; j++) {
-            if (arrSort[j] < temp)
-                temp = arrSort[j];
+    console.log(type)
+
+    if (type == "Increasing") {
+        for (let i = 0; i < arrSort.length; i++) {
+            
+            if (field == 1) {
+                temp = arrSort[nameId].id;
+            }
+            else if (field == 2) {
+                temp = arrSort[nameId].start_date;
+            }
+            else if (field == 3) {
+                temp = arrSort[nameId].duration;
+            }
+            else if (field == 4) {
+                temp = arrSort[nameId].price;
+            }
+            
+            for (let j = 0; j < arrSort.length; j++) {
+                if (arrSort[j] < temp)
+                    temp = arrSort[j];
+            }
+            resultSort[i] = temp;
         }
-        resultSort[i] = temp;
     }
+    else {
+        for (let i = 0; i < arrSort.length; i++) {
+            
+            if (field == 1) {
+                temp = arrSort[nameId].id;
+            }
+            else if (field == 2) {
+                temp = arrSort[nameId].start_date;
+            }
+            else if (field == 3) {
+                temp = arrSort[nameId].duration;
+            }
+            else if (field == 4) {
+                temp = arrSort[nameId].price;
+            }
+
+            for (let j = 0; j < arrSort.length; j++) {
+                if (arrSort[j] > temp)
+                    temp = arrSort[j];
+            }
+            resultSort[i] = temp;
+        }
+    }
+
+
 }
