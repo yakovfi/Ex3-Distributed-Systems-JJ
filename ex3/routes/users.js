@@ -62,24 +62,35 @@ module.exports = {
     update_user: function (req, res) {
         //להוסיף בדיקות שרת!!!!!!!!!!!!!!!!!!!!
         readFile(data => {
+
             if (!req.params["id"]) {
                 res.sendStatus(400);
             }
-            // add the new user
+            else {
 
-            //Test of the functionalities.
-            // bb=req.body
-            // console.log(req.params);
-            
-            const userId = req.params["id"];
-            if (!data[userId]) res.status(400).send("id doesn't exist!");
+                if (req.body.duration == undefined || req.body.price == undefined || req.body.guide == undefined || req.body.guide.name == undefined
+                    || req.body.guide.email == undefined || req.body.guide.cellular == undefined) {
+                    res.sendStatus(400);
+                }
+                else{
 
-            else
-                data[userId] = req.body;
-
-            writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send(`users id:${userId} updated`);
-            });
+                    // add the new user
+                    
+                    //Test of the functionalities.
+                    // bb=req.body
+                    // console.log(req.body.path);
+                    
+                    const userId = req.params["id"];
+                    if (!data[userId]) res.status(400).send("id doesn't exist!");
+                    
+                    else
+                    data[userId] = req.body;
+                    
+                    writeFile(JSON.stringify(data, null, 2), () => {
+                        res.status(200).send(`users id:${userId} updated`);
+                    });
+                }
+            }
         },
             true);
     },
