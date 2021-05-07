@@ -1,28 +1,9 @@
 {
   "Europe1": {
-    "id": "Europe1",
-    "start_date": "01-10-2021",
-    "duration": 12,
-    "price": 6000,
+    "price": 1000,
+    "duration": 58,
     "guide": {
-      "name": "Meir Cohen",
-      "email": "meirc1@gmail.com",
-      "cellular": "4444444"
-    },
-    "path": [
-      {
-        "name": "Pizza",
-        "country": "France"
-      },
-      {
-        "name": "Notre-Dame",
-        "country": "France"
-      },
-      {
-        "name": "London",
-        "country": "England"
-      }
-    ]
+    }
   },
   "Europe2": {
     "id": "Europe2",
