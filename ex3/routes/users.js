@@ -1,5 +1,6 @@
 const fs = require('fs');
 // variables
+let bb;
 const dataPath = './data/users.json';
 
 // helper methods
@@ -65,8 +66,13 @@ module.exports = {
                 res.sendStatus(400);
             }
             // add the new user
+
+            //Test of the functionalities.
+            // bb=req.body
+            // console.log(req.params);
+            
             const userId = req.params["id"];
-            if (!data[userId]) res.status(400).send("id don't exist!");
+            if (!data[userId]) res.status(400).send("id doesn't exist!");
 
             else
                 data[userId] = req.body;

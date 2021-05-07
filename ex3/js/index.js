@@ -1,4 +1,4 @@
-let arr = [];
+let keys = [];
 let obj = {};
 let idHystory = [];
 let saveKey;
@@ -19,6 +19,7 @@ function backToMain() {
 }
 $(document).ready(function () {
     $('#myTable2').hide();
+    $('#myTable').hide();
     $.ajax({
         url: "/users",
         type: 'get',
@@ -26,7 +27,7 @@ $(document).ready(function () {
 
             for (const [key, value] of Object.entries(result)) {
                 saveKey = key;
-                arr[i] = saveKey;
+                keys[i] = saveKey;
                 i++;
             }
 
@@ -46,8 +47,8 @@ $(document).ready(function () {
         window.location.replace('/add_user');
     });
     function createObjectsArray(res) {
-        for (let i = 0; i < arr.length; i++) {
-            let tempArr = arr[i]
+        for (let i = 0; i < keys.length; i++) {
+            let tempArr = keys[i]
             objArr[i] = res[tempArr];
         }
         console.log("result:")
@@ -210,7 +211,11 @@ $(document).ready(function () {
             c++;
             d++;
         }
-
+        if (objArr.length == 0) {
+            $('#myTable').hide();
+        }
+        
+        $('#myTable').show();
         // flag = true;
 
     }
@@ -277,8 +282,8 @@ $(document).ready(function () {
                 //     }
                 // });
 
-
-                window.location.replace('/add_location');
+                let path = '/add_location/'+objArr[nameId].id;
+                window.location.replace(path);
                 $.ajax();
             });
             // $('#myTable2').replaceWith(table);
@@ -290,7 +295,7 @@ $(document).ready(function () {
     function deleteTrip(id_s, index) {
         tempIndex = objArr[index].id;
         tempIndex = '/users/' + tempIndex;
-
+        
         let tempUrl = tempIndex;
 
         if ($("#" + id_s).click(function () {
@@ -312,71 +317,3 @@ $(document).ready(function () {
         }));
     }
 });
-//--------------------------------------------------------
- //   "Europe": {
-    //     "id": "Europe",
-    //     "start_date": "0003-03-03",
-    //     "duration": 3,
-    //     "price": 355,
-    //     "guide": {
-    //       "name": "33",
-    //       "email": "3",
-    //       "cellular": "3"
-    //     }
-    //   },
-    //   "Europe3": {
-    //     "id": "Europe3",
-    //     "start_date": "0003-03-03",
-    //     "duration": 3,
-    //     "price": 3,
-    //     "guide": {
-    //       "name": "3",
-    //       "email": "3",
-    //       "cellular": "3"
-    //     }
-    //   },
-    //   "Europe7": {
-    //     "id": "Europe7",
-    //     "start_date": "0007-07-07",
-    //     "duration": 7,
-    //     "price": 7,
-    //     "guide": {
-    //       "name": "7",
-    //       "email": "7",
-    //       "cellular": "7"
-    //     }
-    //   },
-    //   "Europe5": {
-    //     "id": "Europe5",
-    //     "start_date": "0005-05-05",
-    //     "duration": 5,
-    //     "price": 55,
-    //     "guide": {
-    //       "name": "5",
-    //       "email": "5",
-    //       "cellular": "5"
-    //     }
-    //   },
-    //   "Europe4": {
-    //     "id": "Europe4",
-    //     "start_date": "0004-04-04",
-    //     "duration": 4,
-    //     "price": 4,
-    //     "guide": {
-    //       "name": "4",
-    //       "email": "4",
-    //       "cellular": "4"
-    //     }
-    //   },
-    //   "Europe6": {
-    //     "id": "Europe6",
-    //     "start_date": "0005-05-05",
-    //     "duration": 1,
-    //     "price": 1,
-    //     "guide": {
-    //       "name": "1",
-    //       "email": "1",
-    //       "cellular": "1"
-    //     }
-    //   }
-// }

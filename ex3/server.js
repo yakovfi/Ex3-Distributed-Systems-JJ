@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 
 
-app.use('/add_location', express.static(path.join(__dirname, 'html/add_location.html')));
+app.use('/add_location/:id', express.static(path.join(__dirname, 'html/add_location.html')));
 app.use('/main', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/list_users', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/add_user', express.static(path.join(__dirname, 'html/add_user_form.html')));//Upload file add_user_form.html
