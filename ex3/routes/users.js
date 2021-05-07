@@ -41,11 +41,11 @@ module.exports = {
     createTour: function (req, res) {
 
         readFile(data => {
-            console.log(req.body)
+            // console.log(req.body)
             // add the new user
             if (!req.body.id || !req.body.price || !req.body.start_date || !req.body.duration || !req.body.guide.name ||
                 !req.body.guide.email || !req.body.guide.cellular) {
-                return res.sendStatus(500);
+                res.status(400).send('bad input: Some of the fields are empty');
             }
             data[req.body.id] = req.body;
 
@@ -59,16 +59,17 @@ module.exports = {
 
     // UPDATE
     update_user: function (req, res) {
-
+        //להוסיף בדיקות שרת!!!!!!!!!!!!!!!!!!!!
         readFile(data => {
-
+            if (!req.params["id"]) {
+                res.sendStatus(400);
+            }
             // add the new user
             const userId = req.params["id"];
-            if (data[userId])
-                data[userId] = req.body;
-            else res.sendStatus(400);
+            if (!data[userId]) res.status(400).send("id don't exist!");
 
-            console.log("after if")
+            else
+                data[userId] = req.body;
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send(`users id:${userId} updated`);

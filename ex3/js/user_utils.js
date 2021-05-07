@@ -42,10 +42,10 @@ $(document).ready(function () {
       url: '/users', // the url where we want to POST
       contentType: 'application/json',
       data: JSON.stringify({
-        "start_date": $("#start_date").val(),
-        "duration": $("#Duration").val(),
-        "price": $("#price").val(),
         "id": $("#id_field").val(),
+        "start_date": $("#start_date").val(),
+        "duration": Number($("#Duration").val()),
+        "price": Number($("#price").val()),
         "guide": {
           "name": $('#gname').val(),
           "email": $('#gemail').val(),
