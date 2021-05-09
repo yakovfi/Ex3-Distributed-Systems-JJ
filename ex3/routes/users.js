@@ -93,7 +93,7 @@ module.exports = {
                 for (let i = 0; i < saveKey.length; i++) {
                     if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
                         flag = true;
-                        res.status(500).send(`The ${saveKey[i]} field is invalid`);
+                        res.status(400).send(`The ${saveKey[i]} field is invalid`);
                         return;
                     }
                 }
@@ -152,7 +152,7 @@ module.exports = {
                                 // console.log(saveKeyGuide[i]);
                                 if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
                                     flagErrGuide = true;
-                                    res.status(500).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
+                                    res.status(400).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
                                     return;
                                 }
                             }

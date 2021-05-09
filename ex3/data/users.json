@@ -7,7 +7,7 @@
     "guide": {
       "name": "1",
       "email": "1",
-      "cellular": "1"
+      "cellular": "3"
     },
     "path": [
       {
@@ -70,11 +70,11 @@
     "id": "Europe3",
     "start_date": "0001-11-11",
     "duration": 1,
-    "price": 1,
+    "price": 2,
     "guide": {
-      "name": "1",
-      "email": "1",
-      "cellular": "1"
+      "name": "2",
+      "email": "2",
+      "cellular": "2"
     },
     "path": [
       {

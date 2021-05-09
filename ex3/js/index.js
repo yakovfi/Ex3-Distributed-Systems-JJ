@@ -303,13 +303,14 @@ $(document).ready(function () {
 
         tempIndex = objArr[index].id;
         let tempUrl = '/users/' + tempIndex;
+        // alert(objArr[index].id);
 
 
         if ($("#" + id_s).click(function () {
             // alert(tempUrl);
             // alert(id_s);
 
-            window.location.replace('/update_tour');
+            window.location.replace('/update_tour/id?id='+objArr[index].id);
         }));
     }
 });

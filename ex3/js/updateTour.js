@@ -1,5 +1,4 @@
 
-
 $(document).ready(function () {
     $("form[name='user_form']").validate({
         // Specify validation rules
@@ -29,6 +28,12 @@ $(document).ready(function () {
         }
     });
 
+    let this_page_url = window.location.href;
+    let url_array = this_page_url.split("/");
+    params_array = url_array[url_array.length-1].split("=");
+    let ID = params_array[params_array.length-1];
+    alert(ID);
+
     // process the form
     $('#user_form').submit(function (event) {
 
@@ -46,15 +51,12 @@ $(document).ready(function () {
             }
         })
 
-
-
         // console.log('test:', data2)
         // console.log('stringed: ', JSON.stringify(data2))
         // process the form
-
         $.ajax({
             type: 'PUT', // define the type of HTTP verb we want to use (PUT for our form)
-            url: '/users/Europe3', // the url where we want to PUT
+            url: '/users/'+ID, // the url where we want to PUT
             contentType: 'application/json',
             data: data2,
             processData: false,
