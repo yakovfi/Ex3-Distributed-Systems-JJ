@@ -30,9 +30,8 @@ $(document).ready(function () {
 
     let this_page_url = window.location.href;
     let url_array = this_page_url.split("/");
-    params_array = url_array[url_array.length-1].split("=");
+    let params_array = url_array[url_array.length-1].split("=");
     let ID = params_array[params_array.length-1];
-    alert(ID);
 
     // process the form
     $('#user_form').submit(function (event) {

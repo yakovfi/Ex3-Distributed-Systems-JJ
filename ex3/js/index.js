@@ -39,6 +39,10 @@ $(document).ready(function () {
         }
     });
 
+
+    $("#Adding_a_new_Trip").click(function () {
+        window.location.replace('/add_tour');
+    });
     $("#Adding_new_Trip").click(function () {
         window.location.replace('/add_tour');
     });

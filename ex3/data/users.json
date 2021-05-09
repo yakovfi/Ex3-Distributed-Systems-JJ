@@ -26,13 +26,13 @@
   },
   "Europe2": {
     "id": "Europe2",
-    "start_date": 9,
+    "start_date": "1989-07-06",
     "duration": 11111,
     "price": 11111,
     "guide": {
-      "name": "meny ",
-      "email": "meny@gmail.com",
-      "cellular": "0502333333"
+      "name": "Yakov",
+      "email": "Jonas@",
+      "cellular": "156456"
     },
     "path": [
       {
