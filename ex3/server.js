@@ -12,7 +12,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/add_location/:id', express.static(path.join(__dirname, 'html/add_location.html')));
 app.use('/main', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/list_users', express.static(path.join(__dirname, 'html/index.html')));
-app.use('/add_user', express.static(path.join(__dirname, 'html/add_user_form.html')));//Upload file add_user_form.html
+app.use('/update_tour', express.static(path.join(__dirname, 'html/update_data.html')));
+app.use('/add_tour', express.static(path.join(__dirname, 'html/createTour.html')));//Upload file add_user_form.html
 app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/myCss', express.static(path.join(__dirname, 'css')));
 app.use('/public', express.static(path.join(__dirname, 'public')));

@@ -3,17 +3,15 @@ let obj = {};
 let idHystory = [];
 let saveKey;
 let indexOfRowTable = 0;
-
 let i = 0;
 let objArr = [];
-
 //-----------------------
 let tempIndex;
 let ID = "id";
 let START_DATE = "start_date";
 let DURATION = "duration";
 let PRICE = "price";
-
+//-------------------------
 function backToMain() {
     window.location.replace('/main');
 }
@@ -30,11 +28,9 @@ $(document).ready(function () {
                 keys[i] = saveKey;
                 i++;
             }
-
             createObjectsArray(result);
             dataTrip();
             // alert(i);
-
             // להוסיף סטטוס
         },
         error: function (err) {
@@ -44,20 +40,18 @@ $(document).ready(function () {
     });
 
     $("#Adding_new_Trip").click(function () {
-        window.location.replace('/add_user');
+        window.location.replace('/add_tour');
     });
     function createObjectsArray(res) {
         for (let i = 0; i < keys.length; i++) {
             let tempArr = keys[i]
             objArr[i] = res[tempArr];
         }
-        console.log("result:")
-        console.log(objArr);
+        // console.log("result:")
+        // console.log(objArr);
     }
     //---------------------------------------------------------
     function dataTrip() {
-        // console.log("res: ");
-        // console.log(res);
 
         sorting("Increasing", ID); //defult
 
@@ -95,13 +89,13 @@ $(document).ready(function () {
     // -------------------------------------------------------------
     function sorting(type, field) {
 
-        console.log(' array : ', objArr.length)
+        // console.log(' array : ', objArr.length)
         if (type == "Increasing") {
             let tempObj1;
             let tempObj2;
-            console.log("befor sort:");
+            // console.log("befor sort:");
             for (let i = 0; i < objArr.length; i++) {
-                console.log(i + ": " + objArr[i][field]);
+                // console.log(i + ": " + objArr[i][field]);
             }
             // להוסיף מקרה קצה שהטבלה קטנה מ-2
 
@@ -117,19 +111,19 @@ $(document).ready(function () {
                     }
                 }
             }
-            console.log("after sort:");
+            // console.log("after sort:");
             for (let i = 0; i < objArr.length; i++) {
 
-                console.log(i + ": " + objArr[i][field]);
+                // console.log(i + ": " + objArr[i][field]);
             }
 
         }//end Increasing
         else if (type == "Decreasing") {
             let tempObj1;
             let tempObj2;
-            console.log("befor sort:");
+            // console.log("befor sort:");
             for (let i = 0; i < objArr.length; i++) {
-                console.log(i + ": " + objArr[i][field]);
+                // console.log(i + ": " + objArr[i][field]);
             }
             // להוסיף מקרה קצה שהטבלה קטנה מ-2
 
@@ -150,10 +144,10 @@ $(document).ready(function () {
                     }
                 }
             }
-            console.log("after sort:");
+            // console.log("after sort:");
             for (let i = 0; i < objArr.length; i++) {
 
-                console.log(i + ": " + objArr[i][field]);
+                // console.log(i + ": " + objArr[i][field]);
             }
         }
 
@@ -178,14 +172,14 @@ $(document).ready(function () {
                     // console.log('te: ', table.rows[i])
                     table.deleteRow(i);
 
-                    console.log('te: ', table.rows[i])
+                    // console.log('te: ', table.rows[i])
                 }
             }
 
 
         // table.deleteRow(0);
 
-        console.log('length: ', table.rows.length)
+        // console.log('length: ', table.rows.length)
         for (let i = objArr.length - 1; i >= 0; i--) {
             var table = document.getElementById("myTable");
             var row = table.insertRow(1);
@@ -206,6 +200,7 @@ $(document).ready(function () {
             deleteTrip(a, i);
             DetailsOfTheGuide(b, i);
             trackView(c, i);
+            update(d, i);
             a++;
             b++;
             c++;
@@ -214,7 +209,7 @@ $(document).ready(function () {
         if (objArr.length == 0) {
             $('#myTable').hide();
         }
-        
+
         $('#myTable').show();
         // flag = true;
 
@@ -270,19 +265,9 @@ $(document).ready(function () {
                 countIndex++;
             }
             $("#" + id_s).click(() => {
-                // $.ajax({
-                //     type: 'put',
-                //     url: ,
-                //     traditional: true,
-                //     success: function () {
 
-                //     },
-                //     error: function () {
-                //         alert("Cannot access to JSON");
-                //     }
-                // });
 
-                let path = '/add_location/'+objArr[nameId].id;
+                let path = '/add_location/' + objArr[nameId].id;
                 window.location.replace(path);
                 $.ajax();
             });
@@ -294,9 +279,7 @@ $(document).ready(function () {
     // --------------------------------------------------------------------------
     function deleteTrip(id_s, index) {
         tempIndex = objArr[index].id;
-        tempIndex = '/users/' + tempIndex;
-        
-        let tempUrl = tempIndex;
+        let tempUrl = '/users/' + tempIndex;
 
         if ($("#" + id_s).click(function () {
             // alert(tempUrl);
@@ -314,6 +297,19 @@ $(document).ready(function () {
             });
             window.location.replace('/main');
 
+        }));
+    }
+    function update(id_s, index) {
+
+        tempIndex = objArr[index].id;
+        let tempUrl = '/users/' + tempIndex;
+
+
+        if ($("#" + id_s).click(function () {
+            // alert(tempUrl);
+            // alert(id_s);
+
+            window.location.replace('/update_tour');
         }));
     }
 });

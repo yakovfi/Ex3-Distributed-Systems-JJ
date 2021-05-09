@@ -31,7 +31,7 @@ module.exports = {
     read_users: function (req, res) {
         fs.readFile(dataPath, 'utf8', (err, data) => {
             if (err) {
-                res.sendStatus(500);
+                res.status(500).send("server error");
             }
             else
                 res.send(!data ? JSON.parse("{}") : JSON.parse(data));
@@ -44,10 +44,12 @@ module.exports = {
         readFile(data => {
             // console.log(req.body)
             // add the new user
-            if (!req.body.id || !req.body.price || !req.body.start_date || !req.body.duration || !req.body.guide.name ||
-                !req.body.guide.email || !req.body.guide.cellular) {
-                res.status(400).send('bad input: Some of the fields are empty');
-            }
+            // if (!req.body.id || !req.body.price || !req.body.start_date || !req.body.duration || !req.body.guide.name ||
+            //     !req.body.guide.email || !req.body.guide.cellular) {
+            //     res.status(400).send('bad input: Some of the fields are empty'); 
+            //צד לקוח!!!!!!!!!!!!!!!!!!!!!!!!!
+            // }
+            console.log("req.body:", req.body);
             data[req.body.id] = req.body;
 
 
@@ -60,34 +62,112 @@ module.exports = {
 
     // UPDATE
     update_user: function (req, res) {
-        //להוסיף בדיקות שרת!!!!!!!!!!!!!!!!!!!!
         readFile(data => {
 
             if (!req.params["id"]) {
-                res.sendStatus(400);
+                res.status(404).json({ errors });
+                // stop further execution in this callback
+                return;
             }
             else {
+                let flagErrGuide = false;
+                let flag = false;
+                let saveKey = [];
+                let saveKeyGuide = [];
+                let i = 0;
 
-                if (req.body.duration == undefined || req.body.price == undefined || req.body.guide == undefined || req.body.guide.name == undefined
-                    || req.body.guide.email == undefined || req.body.guide.cellular == undefined) {
-                    res.sendStatus(400);
+
+                for (var propName in req.body) {
+                    saveKey[i] = propName;
+                    i++;
                 }
-                else{
 
-                    // add the new user
-                    
-                    //Test of the functionalities.
-                    // bb=req.body
-                    // console.log(req.body.path);
-                    
-                    const userId = req.params["id"];
-                    if (!data[userId]) res.status(400).send("id doesn't exist!");
-                    
-                    else
-                    data[userId] = req.body;
-                    
+                for (var prop in req.body.guide) {
+                    saveKeyGuide[i] = prop;
+                    // console.log(i);
+                    // console.log(saveKeyGuide[i]);
+                    i++;
+                }
+                // console.log(saveKeyGuide);
+                // console.log(saveKey);
+                for (let i = 0; i < saveKey.length; i++) {
+                    if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
+                        flag = true;
+                        res.status(500).send(`The ${saveKey[i]} field is invalid`);
+                        return;
+                    }
+                }
+                if (flag === false) {
+                    if (req.body.start_date) {
+
+                        let userId = req.params["id"];
+
+                        if (!data[userId]) {
+
+                            return res.status(400).send("id doesn't exist!");
+                        }
+                        else
+                            // console.log("req.body.duration:", req.body);
+                            data[userId].start_date = req.body.start_date;
+                    }
+                    //-----------------------------------
+                    if (req.body.price) {
+
+                        let userId = req.params["id"];
+                        if (!data[userId]) {
+                            return res.status(400).send("id doesn't exist!");
+                        }
+
+                        else {
+                            data[userId].price = req.body.price;
+                        }
+                        // console.log("af:", data[userId].price);
+                    }
+                    //-----------------------------------
+                    if (req.body.duration) {
+                        let userId = req.params["id"];
+
+                        if (!data[userId]) {
+                            return res.status(400).send("id doesn't exist!");
+
+                        }
+
+                        else {
+                            data[userId].duration = req.body.duration;
+                        }
+                        // console.log("af:", data[userId].duration)
+
+                    }
+                    if (req.body.guide) {
+                        let userId = req.params["id"];
+                        if (!data[userId]) {
+                            return res.status(400).send("id doesn't exist!");
+
+                        }
+                        else {
+                            // console.log("2");
+                            // console.log(saveKeyGuide.length);
+                            for (let i = 4; i < saveKeyGuide.length; i++) {
+                                // console.log(saveKeyGuide[i])
+                                // console.log(saveKeyGuide[i]);
+                                if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
+                                    flagErrGuide = true;
+                                    res.status(500).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
+                                    return;
+                                }
+                            }
+                            if (req.body.guide.name)
+                                data[userId].guide.name = req.body.guide.name;
+                            if (req.body.guide.email)
+                                data[userId].guide.email = req.body.guide.email;
+                            if (req.body.guide.cellular)
+                                data[userId].guide.cellular = req.body.guide.cellular;
+
+                        }
+                        // console.log("af:", data[userId].duration)
+                    }
                     writeFile(JSON.stringify(data, null, 2), () => {
-                        res.status(200).send(`users id:${userId} updated`);
+                        return res.status(200).send(`users id: updated`);
                     });
                 }
             }
