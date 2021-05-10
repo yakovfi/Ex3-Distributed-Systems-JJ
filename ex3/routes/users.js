@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 const fs = require('fs');
+const { cpuUsage } = require('process');
 const { use } = require('./routes');
 // variables
 let bb;
@@ -77,7 +78,6 @@ module.exports = {
                 let saveKey = [];
                 let saveKeyGuide = [];
                 let i = 0;
-                let locationMemory = [];
                 for (var propName in req.body) {
                     console.log(saveKey);
                     saveKey[i] = propName;
@@ -209,7 +209,13 @@ module.exports = {
 
             // add the new user
             const userId = req.params["id"];
-            delete data[userId];
+            // let loacation = req.params["name"];                     //למחר!!!!!!!!!!!!!!
+            // delete data[userId].path[location];
+
+            // console.log(req.body);
+            // if (req.body.path[req.body] != undefined) {
+            //     delete data[userId].path[req.body];
+            // }
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send(`users id:${userId} removed`);

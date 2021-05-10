@@ -258,18 +258,27 @@ $(document).ready(function () {
 
             countIndex = 0;
 
-            // alert(objArr[nameId].path[countIndex].name);
-            // alert(objArr[nameId].path[countIndex].country);
+            let counter = 0;
 
-            cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"// id-s??? לבדוק אם
-            // cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
+            cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
             if (objArr[nameId].path === null) { alert("no") }
+
+
+
+            let buttons = [];
+            let counters = [];
             while (objArr[nameId].path[countIndex] !== undefined) {
+                let button = "button" + counter;
                 cell1.innerHTML +=
                     "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country
                     +
-                    "<button class= details id=" + id_s + ">Delete location </button>" + "<br />";
+                    "<button class= details id=" + button + ">Delete location </button>" + "<br />";
+                buttons[counter] = button;
+                counters[counter] = counter;
+                deleteT(buttons, counters, nameId);
                 countIndex++;
+                counter++;
+
             }
             $("#" + id_s).click(() => {
 
@@ -302,8 +311,48 @@ $(document).ready(function () {
                 }
             });
             window.location.replace('/main');
-
         }));
+    }
+    function deleteT(arrButtons, arrCounter, nameId) {
+        let index;
+        // let tempUrl = '/users/' + tempIndex;
+        for (let i = 0; i < arrButtons.length; i++) {
+
+            let id_s = arrButtons[i];
+            if ($("#" + id_s).click(function () {
+                index = arrCounter[i]
+                let tempIndex = objArr[nameId].path[index];
+                console.log(tempIndex);
+
+
+                let tempUrl = '/users/' + objArr[nameId].id;
+                alert(tempUrl);
+                // $.ajax({
+                //     type: 'DELETE',
+                //     url: tempUrl,
+                //     traditional: true,
+                //     contentType: 'raw',
+                //     data: index,
+                //     success: function () {
+
+                //     },
+                //     error: function () {
+                //         alert("Cannot access to JSON");
+                //     }
+                // });
+
+            }));
+
+
+        }
+
+
+        // if ($("#" + id_s).click(function () {
+        //     // alert(tempUrl);
+
+        // }));
+
+
     }
     function update(id_s, index) {
 
