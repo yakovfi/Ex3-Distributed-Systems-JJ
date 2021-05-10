@@ -101,7 +101,8 @@ module.exports = {
                         // if ()
                         console.log(i);
                         let userId = req.params["id"];
-                        let new_location = `{"name": ${req.body.name},"country": ${req.body.country}}`;
+                        console.log(typeof req.body.name);
+                        let new_location = `{"name": "${req.body.name}","country": "${req.body.country}"}`;
                         data[userId].path.push(JSON.parse(new_location));
                         break;
                         // Object.assign(data[userId].path[0] = {
@@ -112,7 +113,6 @@ module.exports = {
                         // data[userId].path[j].name = req.body.name;
                         // data[userId].path[j].country = req.body.country;
                         // console.log("af:", data[userId].price);
-
 
                     }
                     else if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
