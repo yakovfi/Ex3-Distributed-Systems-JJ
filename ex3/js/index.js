@@ -257,7 +257,7 @@ $(document).ready(function () {
             let cell1 = row.insertCell(0);
 
             countIndex = 0;
-            
+
             // alert(objArr[nameId].path[countIndex].name);
             // alert(objArr[nameId].path[countIndex].country);
 
@@ -266,7 +266,9 @@ $(document).ready(function () {
             if (objArr[nameId].path === null) { alert("no") }
             while (objArr[nameId].path[countIndex] !== undefined) {
                 cell1.innerHTML +=
-                    "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country + "<br />" + "<br />";
+                    "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country
+                    +
+                    "<button class= details id=" + id_s + ">Delete location </button>" + "<br />";
                 countIndex++;
             }
             $("#" + id_s).click(() => {
@@ -314,7 +316,7 @@ $(document).ready(function () {
             // alert(tempUrl);
             // alert(id_s);
 
-            window.location.replace('/update_tour/id?id='+objArr[index].id);
+            window.location.replace('/update_tour/id?id=' + objArr[index].id);
         }));
     }
 });
