@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 const fs = require('fs');
+const { use } = require('./routes');
 // variables
 let bb;
 const dataPath = './data/users.json';
@@ -65,40 +66,62 @@ module.exports = {
     // UPDATE
     update_user: function (req, res) {
         readFile(data => {
-
             if (!req.params["id"]) {
+
                 res.status(404).json({ errors });
                 // stop further execution in this callback
                 return;
             }
             else {
-                let flagErrGuide = false;
                 let flag = false;
                 let saveKey = [];
                 let saveKeyGuide = [];
                 let i = 0;
-
-
+                let locationMemory = [];
                 for (var propName in req.body) {
+                    console.log(saveKey);
                     saveKey[i] = propName;
                     i++;
                 }
 
+
                 for (var prop in req.body.guide) {
                     saveKeyGuide[i] = prop;
-                    // console.log(i);
-                    // console.log(saveKeyGuide[i]);
+                    console.log(i);
+                    console.log(saveKeyGuide[i]);
                     i++;
                 }
+                console.log(saveKey);
                 // console.log(saveKeyGuide);
                 // console.log(saveKey);
+
+
                 for (let i = 0; i < saveKey.length; i++) {
-                    if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
+                    if (saveKey[i] === "name" || saveKey[i] === "country") {
+                        // if ()
+                        console.log(i);
+                        let userId = req.params["id"];
+                        let new_location = `{"name": ${req.body.name},"country": ${req.body.country}}`;
+                        data[userId].path.push(JSON.parse(new_location));
+                        break;
+                        // Object.assign(data[userId].path[0] = {
+                        //     name: req.body.name,
+                        //     path: req.body.country
+                        // });
+                        // data[userId].path.append("name:" + req.body.name);
+                        // data[userId].path[j].name = req.body.name;
+                        // data[userId].path[j].country = req.body.country;
+                        // console.log("af:", data[userId].price);
+
+
+                    }
+                    else if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
                         flag = true;
                         res.status(400).send(`The ${saveKey[i]} field is invalid`);
                         return;
                     }
                 }
+
                 if (flag === false) {
                     if (req.body.start_date) {
 
@@ -112,6 +135,7 @@ module.exports = {
                             // console.log("req.body.duration:", req.body);
                             data[userId].start_date = req.body.start_date;
                     }
+
                     //-----------------------------------
                     if (req.body.price) {
 
@@ -168,6 +192,8 @@ module.exports = {
                         }
                         // console.log("af:", data[userId].duration)
                     }
+
+
                     writeFile(JSON.stringify(data, null, 2), () => {
                         return res.status(200).send(`users id: updated`);
                     });

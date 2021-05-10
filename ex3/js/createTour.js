@@ -11,7 +11,7 @@ $(document).ready(function () {
       "name": {
         minlength: 3
       },
-      "start_date":{
+      "start_date": {
         //DO WE VERIFY DAY AND MONTHS ?
       },
       "id_field": {
@@ -53,7 +53,7 @@ $(document).ready(function () {
           "email": $('#gemail').val(),
           "cellular": $('#gcell').val(),
         },
-        "path": {},
+        "path": [],
       }),
       processData: false,
       // dataType: 'json', // what type of data do we expect back from the server
