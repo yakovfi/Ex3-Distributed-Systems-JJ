@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static(__dirname + '/public'));
 
 
-app.use('/add_location/:id', express.static(path.join(__dirname, 'html/add_location.html')));
+app.use('/add_location/id', express.static(path.join(__dirname, 'html/add_location.html')));
 app.use('/main', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/list_users', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/update_tour/id', express.static(path.join(__dirname, 'html/update_data.html')));

@@ -9,10 +9,12 @@ $(document).ready(function () {
         required: true
       },
       "name": {
-        minlength: 5
+        minlength: 3
+      },
+      "start_date":{
+        //DO WE VERIFY DAY AND MONTHS ?
       },
       "id_field": {
-        required: true,
         minlength: 6
       },
       "email": {
@@ -21,7 +23,7 @@ $(document).ready(function () {
     },
     // Specify validation error messages
     messages: {
-      name: "At least 5 characters long!",
+      name: "At least 3 characters long!",
       id_field: {
         digits: "Please enter only digits",
         minlength: "At least 6 characters long!"
@@ -50,7 +52,8 @@ $(document).ready(function () {
           "name": $('#gname').val(),
           "email": $('#gemail').val(),
           "cellular": $('#gcell').val(),
-        }
+        },
+        "path": {},
       }),
       processData: false,
       // dataType: 'json', // what type of data do we expect back from the server

@@ -128,5 +128,17 @@
         "country": "Italy"
       }
     ]
+  },
+  "bfdgrsegzs": {
+    "id": "bfdgrsegzs",
+    "start_date": "0001-01-01",
+    "duration": 1,
+    "price": 1,
+    "guide": {
+      "name": "11",
+      "email": "1",
+      "cellular": "1"
+    },
+    "path": {}
   }
 }

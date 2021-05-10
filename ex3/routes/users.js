@@ -1,3 +1,5 @@
+const bodyParser = require('body-parser');
+const { json } = require('body-parser');
 const fs = require('fs');
 // variables
 let bb;
@@ -49,7 +51,7 @@ module.exports = {
             //     res.status(400).send('bad input: Some of the fields are empty'); 
             //צד לקוח!!!!!!!!!!!!!!!!!!!!!!!!!
             // }
-            console.log("req.body:", req.body);
+
             data[req.body.id] = req.body;
 
 

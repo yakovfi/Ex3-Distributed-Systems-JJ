@@ -257,8 +257,9 @@ $(document).ready(function () {
             let cell1 = row.insertCell(0);
 
             countIndex = 0;
-            alert(objArr[nameId].path[countIndex].name);
-            alert(objArr[nameId].path[countIndex].country);
+            
+            // alert(objArr[nameId].path[countIndex].name);
+            // alert(objArr[nameId].path[countIndex].country);
 
             cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"// id-s??? לבדוק אם
             // cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
@@ -270,8 +271,7 @@ $(document).ready(function () {
             }
             $("#" + id_s).click(() => {
 
-
-                let path = '/add_location/' + objArr[nameId].id;
+                let path = '/add_location/id?id=' + objArr[nameId].id;
                 window.location.replace(path);
                 $.ajax();
             });
