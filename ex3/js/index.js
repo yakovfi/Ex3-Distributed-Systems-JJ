@@ -218,7 +218,7 @@ $(document).ready(function () {
 
         let buttons = [];
         let counters = [];
-        let delete_all_id = Math.floor(Math.random());
+
 
 
         var table = document.getElementById("myTable2");
@@ -236,7 +236,7 @@ $(document).ready(function () {
 
         cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
 
-        delete_all_id = "delete_all_id";
+        let delete_all_id = "delete_all_id";
         // max = objArr[nameId].path.length;
         while (objArr[nameId].path[countIndex] !== undefined) {
             let button = "button" + counter;
@@ -250,10 +250,15 @@ $(document).ready(function () {
             buttons[counter] = button;
             counters[counter] = counter;
             countIndex++;
+
             deleteT(buttons, counters, nameId);
             counter++;
 
+
         }
+        DeletePath(nameId, delete_all_id);
+
+        // click on the add location
         $("#" + id_s).click(() => {
 
             let path = '/add_location/id?id=' + objArr[nameId].id;
@@ -263,6 +268,30 @@ $(document).ready(function () {
         return;
         // $('#myTable2').replaceWith(table);
     }
+    function DeletePath(nameID, delete_all_id) {
+        tempIndex = objArr[nameID].id;
+        let tempUrl = '/users/' + tempIndex;
+        let body = JSON.stringify({ "delete": true });
+
+        if ($("#" + delete_all_id).click(function () {
+            $.ajax({
+                type: 'DELETE',
+                url: tempUrl,
+                traditional: true,
+                contentType: 'application/json',
+                data: body,
+                success: function () {
+
+                },
+                error: function () {
+                    alert("Cannot access to JSON");
+                }
+            });
+            window.location.replace('/main');
+        }));
+    }
+
+
     //----------------------------------------------------------------
     function trackView(id_s, nameId) {
 

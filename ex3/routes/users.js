@@ -46,20 +46,18 @@ module.exports = {
     createTour: function (req, res) {
 
         readFile(data => {
-            // console.log(req.body)
-            // add the new user
-            // if (!req.body.id || !req.body.price || !req.body.start_date || !req.body.duration || !req.body.guide.name ||
-            //     !req.body.guide.email || !req.body.guide.cellular) {
-            //     res.status(400).send('bad input: Some of the fields are empty'); 
-            //צד לקוח!!!!!!!!!!!!!!!!!!!!!!!!!
-            // }
 
-            data[req.body.id] = req.body;
+            if (data[req.body.id] != undefined) {
 
+                res.status(400).send("Tour already exists!!");
+            }
+            else {
+                data[req.body.id] = req.body;
 
-            writeFile(JSON.stringify(data, null, 2), () => {
-                res.status(200).send('new user added');
-            });
+                writeFile(JSON.stringify(data, null, 2), () => {
+                    res.status(200).send('new user added');
+                });
+            }
         },
             true);
     },
@@ -79,7 +77,6 @@ module.exports = {
                 let saveKeyGuide = [];
                 let i = 0;
                 for (var propName in req.body) {
-                    console.log(saveKey);
                     saveKey[i] = propName;
                     i++;
                 }
@@ -87,117 +84,122 @@ module.exports = {
 
                 for (var prop in req.body.guide) {
                     saveKeyGuide[i] = prop;
-                    console.log(i);
-                    console.log(saveKeyGuide[i]);
                     i++;
                 }
-                console.log(saveKey);
+
                 // console.log(saveKeyGuide);
                 // console.log(saveKey);
 
 
-                for (let i = 0; i < saveKey.length; i++) {
-                    if (saveKey[i] === "name" || saveKey[i] === "country") {
-                        // if ()
-                        console.log(i);
-                        let userId = req.params["id"];
-                        console.log(typeof req.body.name);
-                        let new_location = `{"name": "${req.body.name}","country": "${req.body.country}"}`;
-                        data[userId].path.push(JSON.parse(new_location));
-                        break;
-                        // Object.assign(data[userId].path[0] = {
-                        //     name: req.body.name,
-                        //     path: req.body.country
-                        // });
-                        // data[userId].path.append("name:" + req.body.name);
-                        // data[userId].path[j].name = req.body.name;
-                        // data[userId].path[j].country = req.body.country;
-                        // console.log("af:", data[userId].price);
+                let userId = req.params["id"];
+                // let i = 0;
+                // saveKey[i] === "name" || saveKey[i] === "country"
+                // for (let i = 0; i < saveKey.length; i++) {
+                if (req.body.country != undefined) {
 
-                    }
-                    else if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
-                        flag = true;
-                        res.status(400).send(`The ${saveKey[i]} field is invalid`);
+                    // console.log(typeof req.body.name);
+                    let identical = false;
+                    data[userId].path.forEach(e => {
+                        if (e.name == req.body.name && e.country == req.body.country) {
+                            identical = true;
+                            console.log("e.name:", e.name, " req.body.name", req.body.name);
+                            return;
+                        }
+                    });
+                    if (identical) {
+                        res.status(400).send("The location already exists");
                         return;
                     }
+                    else {
+
+                        let new_location = `{"name": "${req.body.name}","country": "${req.body.country}"}`;
+                        data[userId].path.push(JSON.parse(new_location));
+                    }
+
+                }
+                // if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
+                //     flag = true;
+                //     res.status(400).send(`The ${saveKey[i]} field is invalid`);
+                //     return;
+                // }
+                // }
+
+                // if (flag == false) {
+                if (req.body.start_date) {
+
+                    let userId = req.params["id"];
+
+                    if (!data[userId]) {
+
+                        return res.status(400).send("id doesn't exist!");
+                    }
+                    else
+                        // console.log("req.body.duration:", req.body);
+                        data[userId].start_date = req.body.start_date;
                 }
 
-                if (flag === false) {
-                    if (req.body.start_date) {
+                //-----------------------------------
+                if (req.body.price) {
 
-                        let userId = req.params["id"];
-
-                        if (!data[userId]) {
-
-                            return res.status(400).send("id doesn't exist!");
-                        }
-                        else
-                            // console.log("req.body.duration:", req.body);
-                            data[userId].start_date = req.body.start_date;
+                    let userId = req.params["id"];
+                    if (!data[userId]) {
+                        return res.status(400).send("id doesn't exist!");
                     }
 
-                    //-----------------------------------
-                    if (req.body.price) {
-
-                        let userId = req.params["id"];
-                        if (!data[userId]) {
-                            return res.status(400).send("id doesn't exist!");
-                        }
-
-                        else {
-                            data[userId].price = req.body.price;
-                        }
-                        // console.log("af:", data[userId].price);
+                    else {
+                        data[userId].price = req.body.price;
                     }
-                    //-----------------------------------
-                    if (req.body.duration) {
-                        let userId = req.params["id"];
+                    // console.log("af:", data[userId].price);
+                }
+                //-----------------------------------
+                if (req.body.duration) {
+                    let userId = req.params["id"];
 
-                        if (!data[userId]) {
-                            return res.status(400).send("id doesn't exist!");
-
-                        }
-
-                        else {
-                            data[userId].duration = req.body.duration;
-                        }
-                        // console.log("af:", data[userId].duration)
+                    if (!data[userId]) {
+                        return res.status(400).send("id doesn't exist!");
 
                     }
-                    if (req.body.guide) {
-                        let userId = req.params["id"];
-                        if (!data[userId]) {
-                            return res.status(400).send("id doesn't exist!");
 
-                        }
-                        else {
-                            // console.log("2");
-                            // console.log(saveKeyGuide.length);
-                            for (let i = 4; i < saveKeyGuide.length; i++) {
-                                // console.log(saveKeyGuide[i])
-                                // console.log(saveKeyGuide[i]);
-                                if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
-                                    flagErrGuide = true;
-                                    res.status(400).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
-                                    return;
-                                }
+                    else {
+                        data[userId].duration = req.body.duration;
+                    }
+                    // console.log("af:", data[userId].duration)
+
+                }
+                if (req.body.guide) {
+                    let userId = req.params["id"];
+                    if (!data[userId]) {
+                        return res.status(400).send("id doesn't exist!");
+
+                    }
+                    else {
+                        // console.log("2");
+                        // console.log(saveKeyGuide.length);
+                        for (let i = 4; i < saveKeyGuide.length; i++) {
+                            // console.log(saveKeyGuide[i])
+                            // console.log(saveKeyGuide[i]);
+                            if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
+                                flagErrGuide = true;
+                                res.status(400).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
+                                return;
                             }
-                            if (req.body.guide.name)
-                                data[userId].guide.name = req.body.guide.name;
-                            if (req.body.guide.email)
-                                data[userId].guide.email = req.body.guide.email;
-                            if (req.body.guide.cellular)
-                                data[userId].guide.cellular = req.body.guide.cellular;
-
                         }
-                        // console.log("af:", data[userId].duration)
+                        if (req.body.guide.name)
+                            data[userId].guide.name = req.body.guide.name;
+                        if (req.body.guide.email)
+                            data[userId].guide.email = req.body.guide.email;
+                        if (req.body.guide.cellular)
+                            data[userId].guide.cellular = req.body.guide.cellular;
+
                     }
-
-
-                    writeFile(JSON.stringify(data, null, 2), () => {
-                        return res.status(200).send(`users id: updated`);
-                    });
+                    // console.log("af:", data[userId].duration)
                 }
+
+
+                writeFile(JSON.stringify(data, null, 2), () => {
+                    return res.status(200).send(`users id: updated`);
+                });
+                // }
             }
         },
             true);
@@ -209,13 +211,13 @@ module.exports = {
 
             const userId = req.params["id"];
             // add the new user
-            // if (req.body.delete != undefined) {
-            //     data[userId].path.splice(0, data[userId].path.length);
-            // }
+            if (req.body.delete != undefined) {
+                data[userId].path.splice(0, data[userId].path.length);//ipmortent function!!!!!!!!!!!
+            }
 
 
 
-            if (req.body.country != undefined) {
+            else if (req.body.country != undefined) {
                 let index_to_del = 0;
                 data[userId].path.forEach(function (part, index) {
 

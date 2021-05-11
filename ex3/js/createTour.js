@@ -59,12 +59,11 @@ $(document).ready(function () {
       // dataType: 'json', // what type of data do we expect back from the server
       encode: true,
       success: function (data, textStatus, jQxhr) {
-        console.log(data);
         location.href = "/main";
 
       },
       error: function (jqXhr, textStatus, errorThrown) {
-        console.log(errorThrown);
+        alert(jqXhr.responseText);
       }
     })
 

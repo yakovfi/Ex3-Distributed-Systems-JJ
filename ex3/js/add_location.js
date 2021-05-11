@@ -59,7 +59,7 @@ $(document).ready(function () {
                 location.href = "/main";
             },
             error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
+                alert(jqXhr.responseText);
             }
         })
 
