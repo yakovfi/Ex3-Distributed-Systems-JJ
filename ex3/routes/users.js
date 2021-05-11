@@ -220,7 +220,7 @@ module.exports = {
 
                 }, data[userId].path);
 
-
+                data[userId].path.splice(index_to_del,1);
 
             }
             else

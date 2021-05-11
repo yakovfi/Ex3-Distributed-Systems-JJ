@@ -240,7 +240,6 @@ $(document).ready(function () {
                     "<button class= details id=" + button + ">Delete location </button>" + "<br />";
                 buttons[counter] = button;
                 counters[counter] = counter;
-                // if ((countIndex + 1) == max) { break; }
                 countIndex++;
                 deleteT(buttons, counters, nameId);
                 counter++;
@@ -306,7 +305,6 @@ $(document).ready(function () {
                         alert("Cannot access to JSON");
                     }
                 });
-                // max--;
             }));
         }
         // if ($("#" + id_s).click(function () {
