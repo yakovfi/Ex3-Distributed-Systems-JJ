@@ -87,8 +87,6 @@ module.exports = {
                     i++;
                 }
 
-                // console.log(saveKeyGuide);
-                // console.log(saveKey);
 
 
                 let userId = req.params["id"];
@@ -97,12 +95,12 @@ module.exports = {
                 // for (let i = 0; i < saveKey.length; i++) {
                 if (req.body.country != undefined) {
 
-                    // console.log(typeof req.body.name);
+
                     let identical = false;
                     data[userId].path.forEach(e => {
                         if (e.name == req.body.name && e.country == req.body.country) {
                             identical = true;
-                            console.log("e.name:", e.name, " req.body.name", req.body.name);
+
                             return;
                         }
                     });
@@ -134,7 +132,7 @@ module.exports = {
                         return res.status(400).send("id doesn't exist!");
                     }
                     else
-                        // console.log("req.body.duration:", req.body);
+
                         data[userId].start_date = req.body.start_date;
                 }
 
@@ -149,7 +147,8 @@ module.exports = {
                     else {
                         data[userId].price = req.body.price;
                     }
-                    // console.log("af:", data[userId].price);
+
+
                 }
                 //-----------------------------------
                 if (req.body.duration) {
@@ -163,7 +162,7 @@ module.exports = {
                     else {
                         data[userId].duration = req.body.duration;
                     }
-                    // console.log("af:", data[userId].duration)
+
 
                 }
                 if (req.body.guide) {
@@ -173,11 +172,10 @@ module.exports = {
 
                     }
                     else {
-                        // console.log("2");
-                        // console.log(saveKeyGuide.length);
+
                         for (let i = 4; i < saveKeyGuide.length; i++) {
-                            // console.log(saveKeyGuide[i])
-                            // console.log(saveKeyGuide[i]);
+
+
                             if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
                                 flagErrGuide = true;
                                 res.status(400).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
@@ -192,7 +190,7 @@ module.exports = {
                             data[userId].guide.cellular = req.body.guide.cellular;
 
                     }
-                    // console.log("af:", data[userId].duration)
+
                 }
 
 
@@ -235,13 +233,7 @@ module.exports = {
                 //---------else----------------------------------
                 delete data[userId];
             //-------------------------------------------
-            // let loacation = req.params["name"];  
-            // delete data[userId].path[location];
 
-            // console.log(req.body);
-            // if (req.body.path[req.body] != undefined) {
-            //     delete data[userId].path[req.body];
-            // }
 
             writeFile(JSON.stringify(data, null, 2), () => {
                 res.status(200).send(`users id:${userId} removed`);

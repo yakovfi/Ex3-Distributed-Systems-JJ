@@ -36,8 +36,6 @@ $(document).ready(function () {
   $('#user_form').submit(function (event) {
     if (!$("#user_form").valid()) return;
 
-    console.log("in submit");
-
     // process the form
     $.ajax({
       type: 'POST', // define the type of HTTP verb we want to use (POST for our form)

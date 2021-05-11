@@ -335,11 +335,11 @@ $(document).ready(function () {
             if ($("#" + id_s).click(function () {
                 index = arrCounter[i]
                 let tempIndex = objArr[nameId].path[index];
-                console.log(tempIndex);
+
 
                 tempIndex = JSON.stringify(tempIndex);
                 let tempUrl = '/users/' + objArr[nameId].id;
-                console.log(tempUrl)
+
 
                 $.ajax({
                     type: 'DELETE',

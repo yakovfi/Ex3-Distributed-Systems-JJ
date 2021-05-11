@@ -30,8 +30,8 @@ $(document).ready(function () {
 
     let this_page_url = window.location.href;
     let url_array = this_page_url.split("/");
-    let params_array = url_array[url_array.length-1].split("=");
-    let ID = params_array[params_array.length-1];
+    let params_array = url_array[url_array.length - 1].split("=");
+    let ID = params_array[params_array.length - 1];
 
     // process the form
     $('#user_form').submit(function (event) {
@@ -50,19 +50,18 @@ $(document).ready(function () {
             }
         })
 
-        // console.log('test:', data2)
-        // console.log('stringed: ', JSON.stringify(data2))
+
         // process the form
         $.ajax({
             type: 'PUT', // define the type of HTTP verb we want to use (PUT for our form)
-            url: '/users/'+ID, // the url where we want to PUT
+            url: '/users/' + ID, // the url where we want to PUT
             contentType: 'application/json',
             data: data2,
             processData: false,
             // dataType: 'json', // what type of data do we expect back from the server
             encode: true,
             success: function (data, textStatus, jQxhr) {
-                console.log(data);
+
                 location.href = "/main";
 
             },

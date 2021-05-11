@@ -34,7 +34,6 @@ $(document).ready(function () {
   $('#user_form').submit(function (event) {
     if (!$("#user_form").valid()) return;
 
-    console.log("in submit");
 
     // process the form
     $.ajax({
@@ -56,7 +55,7 @@ $(document).ready(function () {
       // dataType: 'json', // what type of data do we expect back from the server
       encode: true,
       success: function (data, textStatus, jQxhr) {
-        console.log(data);
+
         location.href = "/main";
 
       },

@@ -44,8 +44,8 @@ $(document).ready(function () {
             "country": $("#country_name").val(),
         })
         let myUrl = '/users/' + ID
-        console.log("test", myUrl)
-        // console.log('stringed: ', JSON.stringify(data2))
+
+
         // process the form
         $.ajax({
             type: 'PUT', // define the type of HTTP verb we want to use (PUT for our form)
