@@ -11,20 +11,12 @@
     },
     "path": [
       {
-        "name": "Pizza",
-        "country": "France"
-      },
-      {
         "name": "Notre-Dame",
         "country": "France"
       },
       {
         "name": "London",
         "country": "England"
-      },
-      {
-        "name": "yakov",
-        "country": "fin"
       }
     ]
   },

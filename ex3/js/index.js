@@ -5,6 +5,7 @@ let saveKey;
 let indexOfRowTable = 0;
 let i = 0;
 let objArr = [];
+let if_showing_trackTable = false;
 // let max;
 //-----------------------
 let tempIndex;
@@ -31,7 +32,7 @@ $(document).ready(function () {
             }
             createObjectsArray(result);
             dataTrip();
-            // alert(i);
+
             // להוסיף סטטוס
         },
         error: function (err) {
@@ -197,7 +198,7 @@ $(document).ready(function () {
             var row = table.insertRow(0);
             var cell1 = row.insertCell(0);
 
-            // alert(nameId);
+
             cell1.innerHTML =
                 "name: " + objArr[nameId].guide.name + "<br />" + "<br />" +
                 "email: " + objArr[nameId].guide.email + "<br />" + "<br />" +
@@ -206,55 +207,72 @@ $(document).ready(function () {
             $('#myTable2').show();
 
         }
+
         ));
+
+    }
+    //----------------------------------------------------------------
+
+    function trackTable(id_s, nameId) {
+        // $('#myTable2').show();
+
+        let buttons = [];
+        let counters = [];
+        let delete_all_id = Math.floor(Math.random());
+
+
+        var table = document.getElementById("myTable2");
+
+        if (table.rows.length > 0) {
+            table.rows[0].deleteCell(0);
+            table.deleteRow(0);
+        }
+        let row = table.insertRow(0);
+        let cell1 = row.insertCell(0);
+
+        let countIndex = 0;
+
+        let counter = 0;
+
+        cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
+
+
+        // max = objArr[nameId].path.length;
+        while (objArr[nameId].path[countIndex] !== undefined) {
+            let button = "button" + counter;
+            cell1.innerHTML +=
+                "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country
+                +
+                "<button class= details id=" + button + ">Delete location </button>" + "<br />";
+            if (objArr[nameId].path[countIndex + 1] == undefined) {
+                cell1.innerHTML += "<button class= details id=" + delete_all_id + ">Detete path </button>" + "<br />"
+            }
+            buttons[counter] = button;
+            counters[counter] = counter;
+            countIndex++;
+            deleteT(buttons, counters, nameId, id_s);
+            counter++;
+
+        }
+        $("#" + id_s).click(() => {
+
+            let path = '/add_location/id?id=' + objArr[nameId].id;
+            window.location.replace(path);
+            $.ajax();
+        });
+        return;
+        // $('#myTable2').replaceWith(table);
     }
     //----------------------------------------------------------------
     function trackView(id_s, nameId) {
 
         if ($("#" + id_s).click(function () {
-            // $('#myTable2').show();
-            var table = document.getElementById("myTable2");
-            // alert("table.rows.length: " + table.rows.length);
-            if (table.rows.length > 0) {
-                table.rows[0].deleteCell(0);
-                table.deleteRow(0);
-            }
-            let row = table.insertRow(0);
-            let cell1 = row.insertCell(0);
-
-            let countIndex = 0;
-
-            let counter = 0;
-
-            cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
-            if (objArr[nameId].path === null) { alert("no") }
-
-            let buttons = [];
-            let counters = [];
-            // max = objArr[nameId].path.length;
-            while (objArr[nameId].path[countIndex] !== undefined) {
-                let button = "button" + counter;
-                cell1.innerHTML +=
-                    "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country
-                    +
-                    "<button class= details id=" + button + ">Delete location </button>" + "<br />";
-                buttons[counter] = button;
-                counters[counter] = counter;
-                countIndex++;
-                deleteT(buttons, counters, nameId);
-                counter++;
-
-            }
-            $("#" + id_s).click(() => {
-
-                let path = '/add_location/id?id=' + objArr[nameId].id;
-                window.location.replace(path);
-                $.ajax();
-            });
-            // $('#myTable2').replaceWith(table);
+            trackTable(id_s, nameId)
         }
         ));
         $('#myTable2').show();
+
+
     }
     // --------------------------------------------------------------------------
     function deleteTrip(id_s, index) {
@@ -262,7 +280,7 @@ $(document).ready(function () {
         let tempUrl = '/users/' + tempIndex;
 
         if ($("#" + id_s).click(function () {
-            // alert(tempUrl);
+
 
             $.ajax({
                 type: 'DELETE',
@@ -278,7 +296,7 @@ $(document).ready(function () {
             window.location.replace('/main');
         }));
     }
-    function deleteT(arrButtons, arrCounter, nameId) {
+    function deleteT(arrButtons, arrCounter, nameId, id_button_track_view) {
         let index;
         // let tempUrl = '/users/' + tempIndex;
         for (let i = 0; i < arrButtons.length; i++) {
@@ -291,7 +309,8 @@ $(document).ready(function () {
 
                 tempIndex = JSON.stringify(tempIndex);
                 let tempUrl = '/users/' + objArr[nameId].id;
-                alert(tempUrl);
+
+
                 $.ajax({
                     type: 'DELETE',
                     url: tempUrl,
@@ -299,7 +318,14 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: tempIndex,
                     success: function () {
+
+                        var table = document.getElementById("myTable2");
+
+
+
                         location.reload();
+                        // trackTable(id_button_track_view, nameId);
+                        // location.reload();
                     },
                     error: function () {
                         alert("Cannot access to JSON");
@@ -308,7 +334,7 @@ $(document).ready(function () {
             }));
         }
         // if ($("#" + id_s).click(function () {
-        //     // alert(tempUrl);
+        ;
 
         // }));
 
@@ -318,12 +344,10 @@ $(document).ready(function () {
 
         tempIndex = objArr[index].id;
         let tempUrl = '/users/' + tempIndex;
-        // alert(objArr[index].id);
+
 
 
         if ($("#" + id_s).click(function () {
-            // alert(tempUrl);
-            // alert(id_s);
 
             window.location.replace('/update_tour/id?id=' + objArr[index].id);
         }));
