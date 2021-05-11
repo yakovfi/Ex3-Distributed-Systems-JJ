@@ -5,6 +5,7 @@ let saveKey;
 let indexOfRowTable = 0;
 let i = 0;
 let objArr = [];
+// let max;
 //-----------------------
 let tempIndex;
 let ID = "id";
@@ -39,7 +40,6 @@ $(document).ready(function () {
         }
     });
 
-
     $("#Adding_a_new_Trip").click(function () {
         window.location.replace('/add_tour');
     });
@@ -51,8 +51,6 @@ $(document).ready(function () {
             let tempArr = keys[i]
             objArr[i] = res[tempArr];
         }
-        // console.log("result:")
-        // console.log(objArr);
     }
     //---------------------------------------------------------
     function dataTrip() {
@@ -73,7 +71,6 @@ $(document).ready(function () {
             if (option == "ID") {
                 indexOfRowTable = 0;
                 sorting(type, ID);
-                // console.log(res);
             }
             if (option == "Price") {
                 indexOfRowTable = 0;
@@ -93,21 +90,13 @@ $(document).ready(function () {
     // -------------------------------------------------------------
     function sorting(type, field) {
 
-        // console.log(' array : ', objArr.length)
         if (type == "Increasing") {
             let tempObj1;
             let tempObj2;
-            // console.log("befor sort:");
-            for (let i = 0; i < objArr.length; i++) {
-                // console.log(i + ": " + objArr[i][field]);
-            }
-            // להוסיף מקרה קצה שהטבלה קטנה מ-2
-
             for (let i = 0; i < objArr.length; i++) {
                 tempObj1 = objArr[i];
                 for (let j = i + 1; j < objArr.length; j++) {
                     if (objArr[j][field] < tempObj1[field]) {
-                        // alert(objArr[j][field] + "<" + tempObj1[field]);
                         tempObj2 = objArr[j];
                         objArr[i] = tempObj2
                         objArr[j] = tempObj1;
@@ -115,43 +104,33 @@ $(document).ready(function () {
                     }
                 }
             }
-            // console.log("after sort:");
             for (let i = 0; i < objArr.length; i++) {
 
-                // console.log(i + ": " + objArr[i][field]);
             }
 
-        }//end Increasing
+        }
         else if (type == "Decreasing") {
             let tempObj1;
             let tempObj2;
-            // console.log("befor sort:");
             for (let i = 0; i < objArr.length; i++) {
-                // console.log(i + ": " + objArr[i][field]);
             }
-            // להוסיף מקרה קצה שהטבלה קטנה מ-2
-
 
             for (let i = 0; i < objArr.length; i++) {
                 tempObj1 = objArr[i];
 
                 for (let j = i + 1; j < objArr.length; j++) {
                     if (objArr[j][field] > tempObj1[field]) {
-                        // alert(objArr[j][field] + ">" + tempObj1[field]);
 
                         tempObj2 = objArr[j];
                         objArr[i] = tempObj2
                         objArr[j] = tempObj1;
                         tempObj1 = tempObj2;
-                        // alert("i: " + i + "+" + "j: " + j)
-                        // alert(objArr[0].id + "+" + objArr[1].id + "+" + objArr[2].id + "+" + objArr[3].id);
                     }
                 }
             }
-            // console.log("after sort:");
+
             for (let i = 0; i < objArr.length; i++) {
 
-                // console.log(i + ": " + objArr[i][field]);
             }
         }
 
@@ -163,27 +142,15 @@ $(document).ready(function () {
         var table = document.getElementById("myTable");
         var temp = objArr.length;
 
-
-        // for (let i = temp; i > 0; i--) {
-        //     var x = document.getElementById("myTable");
-
-        //     x.deleteRow(i);
-        // }
-
         if (table.rows.length > objArr.length)
             for (let i = objArr.length; i > 0; --i) {
                 {
-                    // console.log('te: ', table.rows[i])
+
                     table.deleteRow(i);
 
-                    // console.log('te: ', table.rows[i])
                 }
             }
 
-
-        // table.deleteRow(0);
-
-        // console.log('length: ', table.rows.length)
         for (let i = objArr.length - 1; i >= 0; i--) {
             var table = document.getElementById("myTable");
             var row = table.insertRow(1);
@@ -245,7 +212,6 @@ $(document).ready(function () {
     function trackView(id_s, nameId) {
 
         if ($("#" + id_s).click(function () {
-
             // $('#myTable2').show();
             var table = document.getElementById("myTable2");
             // alert("table.rows.length: " + table.rows.length);
@@ -256,17 +222,16 @@ $(document).ready(function () {
             let row = table.insertRow(0);
             let cell1 = row.insertCell(0);
 
-            countIndex = 0;
+            let countIndex = 0;
 
             let counter = 0;
 
             cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
             if (objArr[nameId].path === null) { alert("no") }
 
-
-
             let buttons = [];
             let counters = [];
+            // max = objArr[nameId].path.length;
             while (objArr[nameId].path[countIndex] !== undefined) {
                 let button = "button" + counter;
                 cell1.innerHTML +=
@@ -275,8 +240,9 @@ $(document).ready(function () {
                     "<button class= details id=" + button + ">Delete location </button>" + "<br />";
                 buttons[counter] = button;
                 counters[counter] = counter;
-                deleteT(buttons, counters, nameId);
+                // if ((countIndex + 1) == max) { break; }
                 countIndex++;
+                deleteT(buttons, counters, nameId);
                 counter++;
 
             }
@@ -324,29 +290,25 @@ $(document).ready(function () {
                 let tempIndex = objArr[nameId].path[index];
                 console.log(tempIndex);
 
-
+                tempIndex = JSON.stringify(tempIndex);
                 let tempUrl = '/users/' + objArr[nameId].id;
                 alert(tempUrl);
-                // $.ajax({
-                //     type: 'DELETE',
-                //     url: tempUrl,
-                //     traditional: true,
-                //     contentType: 'raw',
-                //     data: index,
-                //     success: function () {
-
-                //     },
-                //     error: function () {
-                //         alert("Cannot access to JSON");
-                //     }
-                // });
-
+                $.ajax({
+                    type: 'DELETE',
+                    url: tempUrl,
+                    traditional: true,
+                    contentType: 'application/json',
+                    data: tempIndex,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert("Cannot access to JSON");
+                    }
+                });
+                // max--;
             }));
-
-
         }
-
-
         // if ($("#" + id_s).click(function () {
         //     // alert(tempUrl);
 

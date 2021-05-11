@@ -207,9 +207,27 @@ module.exports = {
 
         readFile(data => {
 
-            // add the new user
             const userId = req.params["id"];
-            // let loacation = req.params["name"];                     //למחר!!!!!!!!!!!!!!
+            // add the new user
+            if (req.body != undefined) {
+                let index_to_del = 0;
+                data[userId].path.forEach(function (part, index) {
+
+                    if (this[index].name == req.body.name && this[index].country == req.body.country) {
+                        index_to_del = index;
+                        // delete this[index];
+                    }
+
+                }, data[userId].path);
+
+
+
+            }
+            else
+                //---------else----------------------------------
+                delete data[userId];
+            //-------------------------------------------
+            // let loacation = req.params["name"];  
             // delete data[userId].path[location];
 
             // console.log(req.body);

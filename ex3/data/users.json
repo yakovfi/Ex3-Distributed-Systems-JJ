@@ -5,8 +5,8 @@
     "duration": 1,
     "price": 1,
     "guide": {
-      "name": "ג'ונאס",
-      "email": "1",
+      "name": "יעקב",
+      "email": "hgec2701@gmail.com",
       "cellular": "1"
     },
     "path": [
@@ -25,6 +25,10 @@
       {
         "name": "yakov",
         "country": "fin"
+      },
+      {
+        "name": "ישראל",
+        "country": "ישראל"
       }
     ]
   },
@@ -99,27 +103,6 @@
     "guide": {
       "name": "SSSSS",
       "email": "SSSSS",
-      "cellular": "3333333"
-    },
-    "path": [
-      {
-        "name": "Pizza",
-        "country": "France"
-      },
-      {
-        "name": "Millano",
-        "country": "Italy"
-      }
-    ]
-  },
-  "Europe6": {
-    "id": "Europe6",
-    "start_date": "01-04-2021",
-    "duration": 5,
-    "price": 8500,
-    "guide": {
-      "name": "Sara L",
-      "email": "sarah@gmail.com",
       "cellular": "3333333"
     },
     "path": [
