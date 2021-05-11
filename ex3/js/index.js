@@ -236,21 +236,21 @@ $(document).ready(function () {
 
         cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
 
-
+        delete_all_id = "delete_all_id";
         // max = objArr[nameId].path.length;
         while (objArr[nameId].path[countIndex] !== undefined) {
             let button = "button" + counter;
             cell1.innerHTML +=
                 "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country
                 +
-                "<button class= details id=" + button + ">Delete location </button>" + "<br />";
+                "<button class= delete id=" + button + ">Delete location </button>" + "<br />";
             if (objArr[nameId].path[countIndex + 1] == undefined) {
                 cell1.innerHTML += "<button class= details id=" + delete_all_id + ">Detete path </button>" + "<br />"
             }
             buttons[counter] = button;
             counters[counter] = counter;
             countIndex++;
-            deleteT(buttons, counters, nameId, id_s);
+            deleteT(buttons, counters, nameId);
             counter++;
 
         }
@@ -279,6 +279,7 @@ $(document).ready(function () {
         tempIndex = objArr[index].id;
         let tempUrl = '/users/' + tempIndex;
 
+
         if ($("#" + id_s).click(function () {
 
 
@@ -296,7 +297,7 @@ $(document).ready(function () {
             window.location.replace('/main');
         }));
     }
-    function deleteT(arrButtons, arrCounter, nameId, id_button_track_view) {
+    function deleteT(arrButtons, arrCounter, nameId) {
         let index;
         // let tempUrl = '/users/' + tempIndex;
         for (let i = 0; i < arrButtons.length; i++) {
@@ -309,7 +310,7 @@ $(document).ready(function () {
 
                 tempIndex = JSON.stringify(tempIndex);
                 let tempUrl = '/users/' + objArr[nameId].id;
-
+                console.log(tempUrl)
 
                 $.ajax({
                     type: 'DELETE',
@@ -318,10 +319,6 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: tempIndex,
                     success: function () {
-
-                        var table = document.getElementById("myTable2");
-
-
 
                         location.reload();
                         // trackTable(id_button_track_view, nameId);
@@ -332,13 +329,7 @@ $(document).ready(function () {
                     }
                 });
             }));
-        }
-        // if ($("#" + id_s).click(function () {
-        ;
-
-        // }));
-
-
+        };
     }
     function update(id_s, index) {
 

@@ -1,7 +1,16 @@
 #sorts_type{
     margin-left: 15px;
 }
+.sorts_type{
+    margin: 15px;
+    width: 100px;
+    height: 30px;
+    background-color: #4b667a;
+    border-radius: 50px;
+    color: white;
+    box-shadow: 2px 2px 1px 1px rgb(0, 0, 0);
 
+}
 body,
 html {
     background-color: #6e808f;
@@ -20,12 +29,7 @@ html {
     position: static;
     top: 720px;
 }
-#picture{   
-     width: 200px;
-      height: 100px;
-      float: right;
-    
-}
+
 .container { 
     width: 1300px;
     height: 100px;
@@ -33,6 +37,36 @@ html {
     margin: auto;
     padding: initial;
     background-color: #dee4e9;
+    position: static;
+    top: 720px;
+}
+.container1 { 
+    width: 1300px;
+    height: 65px;
+    padding-top: 0px;
+    margin: auto;
+    padding: initial;
+    background-color: #c8d0d6;
+    position: static;
+    top: 720px;
+}
+.container2 { 
+    width: 1300px;
+    height:initial;
+    padding-top: 0px;
+    margin: auto;
+    padding: initial;
+    background-color: #b3b8bd;
+    position: static;
+    top: 720px;
+}
+.container3 { 
+    width: 1300px;
+    height:initial;
+    padding-top: 0px;
+    margin: auto;
+    padding: initial;
+    background-color: #a5abaf;
     position: static;
     top: 720px;
 }
@@ -111,6 +145,16 @@ button, #sortButton{
 button:hover, #sortButton:hover {
     background-color: #19232b;
 }
+.delete{   
+
+    margin-left:25px;
+
+    height:37px;
+    width: 100px;
+    background-color: #365557;
+    border-radius: 50px;
+    color: white;
+    box-shadow: 2px 2px 1px 1px rgb(0, 0, 0);}
 .details{
     margin: 10px;
     height:30px;

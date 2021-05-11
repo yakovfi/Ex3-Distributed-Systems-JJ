@@ -11,12 +11,16 @@
     },
     "path": [
       {
-        "name": "Notre-Dame",
-        "country": "France"
+        "name": "פיצה",
+        "country": "איטליה"
       },
       {
-        "name": "London",
-        "country": "England"
+        "name": "מוזיאון השאווה",
+        "country": "אמסטרדם"
+      },
+      {
+        "name": "טיול בכותל",
+        "country": "ישראל"
       }
     ]
   },
@@ -74,10 +78,6 @@
     },
     "path": [
       {
-        "name": "Pizza",
-        "country": "France"
-      },
-      {
         "name": "Millano",
         "country": "Italy"
       }
@@ -94,10 +94,6 @@
       "cellular": "3333333"
     },
     "path": [
-      {
-        "name": "Pizza",
-        "country": "France"
-      },
       {
         "name": "Millano",
         "country": "Italy"

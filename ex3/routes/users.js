@@ -209,13 +209,13 @@ module.exports = {
 
             const userId = req.params["id"];
             // add the new user
-            if (req.body.delete != undefined) {
-                data[userId].path.splice(0, data[userId].path.length);
-            }
+            // if (req.body.delete != undefined) {
+            //     data[userId].path.splice(0, data[userId].path.length);
+            // }
 
 
 
-            if (req.body != undefined) {
+            if (req.body.country != undefined) {
                 let index_to_del = 0;
                 data[userId].path.forEach(function (part, index) {
 
