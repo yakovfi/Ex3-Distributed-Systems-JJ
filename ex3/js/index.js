@@ -18,7 +18,7 @@ function backToMain() {
     window.location.replace('/main');
 }
 $(document).ready(function () {
-    $('#myTable2').hide();
+
     $('#myTable').hide();
     $.ajax({
         url: "/Server_Error_Handling_and_implementation",
@@ -188,7 +188,7 @@ $(document).ready(function () {
     }
     //-----------------------------------------------------------
     function DetailsOfTheGuide(id_s, nameId) {
-
+        $('#myTable2').hide();
         if ($("#" + id_s).click(function () {
             var table = document.getElementById("myTable2");
             if (table.rows.length > 0) {
@@ -294,23 +294,23 @@ $(document).ready(function () {
 
     //----------------------------------------------------------------
     function trackView(id_s, nameId) {
-
+        $('#myTable2').hide();
         if ($("#" + id_s).click(function () {
+            $('#myTable2').show();
             trackTable(id_s, nameId)
         }
         ));
-        $('#myTable2').show();
 
 
     }
     // --------------------------------------------------------------------------
     function deleteTrip(id_s, index) {
+        $('#myTable2').hide();
         tempIndex = objArr[index].id;
         let tempUrl = '/Server_Error_Handling_and_implementation/' + tempIndex;
 
 
         if ($("#" + id_s).click(function () {
-
 
             $.ajax({
                 type: 'DELETE',
@@ -361,7 +361,7 @@ $(document).ready(function () {
         };
     }
     function update(id_s, index) {
-
+        $('#myTable2').hide();
         tempIndex = objArr[index].id;
         let tempUrl = '/Server_Error_Handling_and_implementation/' + tempIndex;
 

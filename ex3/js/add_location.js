@@ -2,31 +2,16 @@ $(document).ready(function () {
     $("form[name='user_form']").validate({
         // Specify validation rules
         rules: {
-            // all: {
-            //     required: true
-            // },
-            "name": {
-                minlength: 5
-            },
-            "id_field": {
+            all: {
                 required: true,
-                minlength: 6
-            },
-            "email": {
-                "email": true
             }
         },
         // Specify validation error messages
         messages: {
-            name: "At least 5 characters long!",
-            id_field: {
-                digits: "Please enter only digits",
-                minlength: "At least 6 characters long!"
-            },
-            email: "email structure is some@domain "
+            require: "Please fill all the fields",
+            digits: "Please fill only labels"
         }
     });
-
     let this_page_url = window.location.href;
     let url_array = this_page_url.split("/");
     let params_array = url_array[url_array.length - 1].split("=");
