@@ -5,8 +5,8 @@
     "duration": 1,
     "price": 4156,
     "guide": {
-      "name": "56416",
-      "email": "1",
+      "name": "ghrzsg'rzseg",
+      "email": "Jonas@gzez.vop",
       "cellular": "4156468416"
     },
     "path": [
@@ -60,27 +60,6 @@
         "name": "Pizza",
         "country": "France"
       },
-      {
-        "name": "Millano",
-        "country": "Italy"
-      },
-      {
-        "name": "1",
-        "country": "1"
-      }
-    ]
-  },
-  "Europe3": {
-    "id": "Europe3",
-    "start_date": "0001-11-11",
-    "duration": 1,
-    "price": 2,
-    "guide": {
-      "name": "2",
-      "email": "2",
-      "cellular": "2"
-    },
-    "path": [
       {
         "name": "Millano",
         "country": "Italy"
