@@ -3,9 +3,6 @@ $(document).ready(function () {
     $("form[name='user_form']").validate({
         // Specify validation rules
         rules: {
-            // all: {
-            //     required: true
-            // },
             "name": {
                 minlength: 5
             },
@@ -64,12 +61,11 @@ $(document).ready(function () {
             // dataType: 'json', // what type of data do we expect back from the server
             encode: true,
             success: function (data, textStatus, jQxhr) {
-
                 location.href = "/main";
 
             },
             error: function (jqXhr, textStatus, errorThrown) {
-                console.log(errorThrown);
+                alert(jqXhr.responseText);
             }
         })
 

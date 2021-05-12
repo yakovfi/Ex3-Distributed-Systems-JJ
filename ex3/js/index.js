@@ -158,10 +158,10 @@ $(document).ready(function () {
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             cell1.innerHTML =
-                "id: " + objArr[i].id + "<br />" + "<br />" +
-                "start_date: " + objArr[i].start_date + "<br />" + "<br />" +
-                "duration: " + objArr[i].duration + "<br />" + "<br />" +
-                "price: " + objArr[i].price;
+                "Name of the Tour: " + objArr[i].id + "<br />" + "<br />" +
+                "Departure Date: " + objArr[i].start_date + "<br />" + "<br />" +
+                "Duration: " + objArr[i].duration + "<br />" + "<br />" +
+                "Price: " + objArr[i].price;
             cell2.innerHTML =
                 "<button class= details id=" + a + ">Deleting the trip </button>" + "<br />" +
                 "<button class= details id=" + b + ">Details of the guide </button>" + "<br />" +
@@ -202,7 +202,7 @@ $(document).ready(function () {
             cell1.innerHTML =
                 "name: " + objArr[nameId].guide.name + "<br />" + "<br />" +
                 "email: " + objArr[nameId].guide.email + "<br />" + "<br />" +
-                "duration: " + objArr[nameId].guide.cellular + "<br />" + "<br />";
+                "cellular: " + objArr[nameId].guide.cellular + "<br />" + "<br />";
             $('#myTable2').replaceWith(table);
             $('#myTable2').show();
 

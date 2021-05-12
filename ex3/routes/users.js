@@ -87,23 +87,30 @@ module.exports = {
             }
 
             else {
-                let saveKey = [];
-                let i = 0;
 
                 for (var propName in req.body) {
-                    if (propName != "id" && propName != "start_date" && propName != "duration" && propName != "price" && propName != "guide" && propName != "path") {
 
-                        console.log("In verifs validity field ", propName);
-                        res.status(400).send("Invalid fields !!");
-                        return;
-                        // saveKey[i] = propName;
-                        // i++;
-                    }
                     if (propName == "start_date") {
                         var date_regex = /^(([0-9][0-9][0-9][0-9])\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01]))$/;
                         if (!date_regex.test(req.body.start_date)) {
-                            console.log(req.body.start_date);
-                            res.status(400).send("Invalid start_date field!!");
+                            res.status(400).send("Invalid start_date field !!");
+                            return;
+                        }
+                    }
+
+                    if (propName == "duration") {
+                        var duration_regex = /^[0-9]*$/;
+                        if (!duration_regex.test(req.body.duration)) {
+                            console.log(req.body.duration);
+                            res.status(400).send("Invalid duration field !!");
+                            return;
+                        }
+                    }
+
+                    if (propName == "price") {
+                        var price_regex = /^[0-9]*$/;
+                        if (!price_regex.test(req.body.price)) {
+                            res.status(400).send("Invalid price field !!");
                             return;
                         }
                     }
@@ -112,7 +119,7 @@ module.exports = {
                         for (var prop in req.body.guide) {
 
                             if (prop == "name") {
-                                var name_regex = /^[A-Za-z]+$/;
+                                var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
                                 if (!name_regex.test(req.body.guide.name)) {
                                     res.status(400).send("Invalid guide name field !!");
                                     return;
@@ -122,73 +129,21 @@ module.exports = {
                                 let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
                                 if (!regex.test(req.body.guide.email)) {
                                     res.status(400).send("Invalid guide email field");
-                                    return
+                                    return;
                                 }
                             }
                             if (prop == "cellular") {
 
-                                let regex = /^[0-9]$/;
-                                if (!regex.test(req.body.guide.cellular) && req.body.guide.cellular.length < 7) {
+                                let regex = /^[0-9]*$/;
+                                if (!regex.test(req.body.guide.cellular) || req.body.guide.cellular.length < 7) {
                                     res.status(400).send("Invalid guide cellular field");
-                                    return
+                                    return;
                                 }
                             }
-                            // if (prop.valueOf() != "name" && prop.valueOf() != "email" && prop.valueOf() != "cellular") {
-                            //     console.log(prop.valueOf());
-                            //     res.status(400).send("Invalid guide field !!");
-                            //     console.log("In verifs validity field ", prop);
-                            // }
                         }
                     }
 
-                    // let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    // if (!regex.test(req.body.email)) {
-                    //     res.status(400).send("The email should be in the format: abc@domain.tld");
-                    //     return
-                    // }
                 }
-                console.log("Out verifs validity field");
-
-                // if (req.body.id == undefined || req.body.id == null) {
-                //     res.status(400).send("id is a required field");
-                //     return;
-                // }
-                // else if ((req.body.id).length < 3) {
-
-                //     res.status(400).send("The name must contain at least 3 letters");
-                //     return;
-                // }
-
-                // if (req.body.start_date == undefined || req.body.start_date == null) {
-                //     res.status(400).send("id is a required field");
-                //     return;
-                // }
-                // else if (!checkDate(req.body.start_date)) {
-
-                //     res.status(400).send("date is a required field ");
-                //     return;
-                // }
-                // if (saveKey.length < 7) {
-                //     res.status(400).send("Fields are missing1");
-                //     return;
-
-                // }
-                // else if (saveKey.length > 7) {
-
-                //     res.status(400).send("Invalid field!");
-                //     return;
-
-                // }
-                // else {
-                //     for (i = 0; i < saveKey.length; i++) {
-
-                //         if (saveKey[i] !== "id" && saveKey[i] !== "start_date" && saveKey[i] !== "duration" && saveKey[i] !== "price"
-                //             && saveKey[i] !== "name" && saveKey[i] !== "email" && saveKey[i] !== "cellular") {
-                //             res.status(400).send("Invalid field!!");
-                //             return;
-                //         }
-                //     }
-                // }
 
                 data[req.body.id] = req.body;
 
@@ -211,26 +166,30 @@ module.exports = {
                 return;
             }
             else {
-                // let flag = false;
-                // let saveKey = [];
-                let saveKeyGuide = [];
-                let i = 0;
-                // for (var propName in req.body) {
-                //     saveKey[i] = propName;
-                //     i++;
-                // }
 
-
-                for (var prop in req.body.guide) {
-                    saveKeyGuide[i] = prop;
-                    i++;
-                }
                 let userId = req.params["id"];
-                // let i = 0;
-                // saveKey[i] === "name" || saveKey[i] === "country"
-                // for (let i = 0; i < saveKey.length; i++) {
-                if (req.body.country != undefined) {
 
+                if (req.body.country != undefined) {
+                    
+                    for (var prop in req.body) {
+
+                        if (prop == "name") {
+                            var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
+                            console.log(req.body.name);
+                            console.log(name_regex.test(req.body.name));
+                            if (!name_regex.test(req.body.name)) {
+                                res.status(400).send("Invalid Location Name field !!");
+                                return;
+                            }
+                        }
+                        if (prop == "country") {
+                            var country_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
+                            if (!country_regex.test(req.body.country)) {
+                                res.status(400).send("Invalid Country Name field !!");
+                                return;
+                            }
+                        }
+                    }
 
                     let identical = false;
                     data[userId].path.forEach(e => {
@@ -251,58 +210,94 @@ module.exports = {
                     }
 
                 }
-                // if (saveKey[i] !== "start_date" && saveKey[i] !== "price" && saveKey[i] !== "guide" && saveKey[i] !== "duration") {
-                //     flag = true;
-                //     res.status(400).send(`The ${saveKey[i]} field is invalid`);
-                //     return;
-                // }
-                // }
+                else {
 
-                // if (flag == false) {
-                if (req.body.start_date) {
+                    for (var propName in req.body) {
 
-                    let userId = req.params["id"];
+                        if (propName == "start_date") {
+                            var date_regex = /^^$|(([0-9][0-9][0-9][0-9])\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01]))$/;
+                            if (!date_regex.test(req.body.start_date)) {
+                                res.status(400).send("Invalid start_date field !!");
+                                return;
+                            }
+                        }
 
-                    if (!data[userId]) {
+                        if (propName == "duration") {
+                            var duration_regex = /^^$|[0-9]*$/;
+                            if (!duration_regex.test(req.body.duration)) {
+                                console.log(req.body.duration);
+                                res.status(400).send("Invalid duration field !!");
+                                return;
+                            }
+                        }
 
-                        return res.status(400).send("id doesn't exist!");
+                        if (propName == "price") {
+                            var price_regex = /^^$|[0-9]*$/;
+                            if (!price_regex.test(req.body.price)) {
+                                res.status(400).send("Invalid price field !!");
+                                return;
+                            }
+                        }
+
+                        if (propName == "guide") {
+                            for (var prop in req.body.guide) {
+
+                                if (prop == "name") {
+                                    var name_regex = /^^$|([A-Za-z]|[\u0590-\u05fe])*$/;
+                                    if (!name_regex.test(req.body.guide.name)) {
+                                        res.status(400).send("Invalid guide name field !!");
+                                        return;
+                                    }
+                                }
+                                if (prop == "email") {
+                                    let regex = /^^$|[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                                    if (!regex.test(req.body.guide.email)) {
+                                        res.status(400).send("Invalid guide email field");
+                                        return;
+                                    }
+                                }
+                                if (prop == "cellular") {
+
+                                    let regex = /^^$|[0-9]*$/;
+                                    if (req.body.guide.cellular != "" && req.body.guide.cellular.length < 7) {
+                                        res.status(400).send("Invalid guide cellular field");
+                                        return;
+                                    }
+                                    if (!regex.test(req.body.guide.cellular)) {
+
+                                        res.status(400).send("Invalid guide cellular field");
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+
                     }
-                    else
+
+                    let saveKeyGuide = [];
+                    let i = 0;
+
+                    for (var prop in req.body.guide) {
+                        saveKeyGuide[i] = prop;
+                        i++;
+                    }
+
+                    if (req.body.start_date) {
 
                         data[userId].start_date = req.body.start_date;
-                }
-
-                //-----------------------------------
-                if (req.body.price) {
-
-                    let userId = req.params["id"];
-                    if (!data[userId]) {
-                        return res.status(400).send("id doesn't exist!");
                     }
 
-                    else {
+                    //-----------------------------------
+                    if (req.body.price) {
                         data[userId].price = req.body.price;
                     }
-                }
-                //-----------------------------------
-                if (req.body.duration) {
-                    let userId = req.params["id"];
+                    //-----------------------------------
+                    if (req.body.duration) {
 
-                    if (!data[userId]) {
-                        return res.status(400).send("id doesn't exist!");
-                    }
-                    else {
                         data[userId].duration = req.body.duration;
-                    }
-
-                }
-                if (req.body.guide) {
-                    let userId = req.params["id"];
-                    if (!data[userId]) {
-                        return res.status(400).send("id doesn't exist!");
 
                     }
-                    else {
+                    if (req.body.guide) {
 
                         for (let i = 4; i < saveKeyGuide.length; i++) {
                             if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
@@ -317,13 +312,12 @@ module.exports = {
                             data[userId].guide.email = req.body.guide.email;
                         if (req.body.guide.cellular)
                             data[userId].guide.cellular = req.body.guide.cellular;
-
                     }
                 }
                 writeFile(JSON.stringify(data, null, 2), () => {
                     return res.status(200).send(`users id: updated`);
                 });
-                // }
+
             }
         },
             true);
