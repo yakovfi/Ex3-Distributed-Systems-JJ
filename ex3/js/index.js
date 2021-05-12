@@ -21,7 +21,7 @@ $(document).ready(function () {
     $('#myTable2').hide();
     $('#myTable').hide();
     $.ajax({
-        url: "/users",
+        url: "/Server_Error_Handling_and_implementation",
         type: 'get',
         success: function (result) {
 
@@ -270,7 +270,7 @@ $(document).ready(function () {
     }
     function DeletePath(nameID, delete_all_id) {
         tempIndex = objArr[nameID].id;
-        let tempUrl = '/users/' + tempIndex;
+        let tempUrl = '/Server_Error_Handling_and_implementation/' + tempIndex;
         let body = JSON.stringify({ "delete": true });
 
         if ($("#" + delete_all_id).click(function () {
@@ -306,7 +306,7 @@ $(document).ready(function () {
     // --------------------------------------------------------------------------
     function deleteTrip(id_s, index) {
         tempIndex = objArr[index].id;
-        let tempUrl = '/users/' + tempIndex;
+        let tempUrl = '/Server_Error_Handling_and_implementation/' + tempIndex;
 
 
         if ($("#" + id_s).click(function () {
@@ -338,7 +338,7 @@ $(document).ready(function () {
 
 
                 tempIndex = JSON.stringify(tempIndex);
-                let tempUrl = '/users/' + objArr[nameId].id;
+                let tempUrl = '/Server_Error_Handling_and_implementation/' + objArr[nameId].id;
 
 
                 $.ajax({
@@ -363,7 +363,7 @@ $(document).ready(function () {
     function update(id_s, index) {
 
         tempIndex = objArr[index].id;
-        let tempUrl = '/users/' + tempIndex;
+        let tempUrl = '/Server_Error_Handling_and_implementation/' + tempIndex;
 
 
 

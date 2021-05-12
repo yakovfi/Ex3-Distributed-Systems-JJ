@@ -41,7 +41,7 @@ $(document).ready(function () {
             "name": $("#location_name").val(),
             "country": $("#country_name").val(),
         })
-        let myUrl = '/users/' + ID
+        let myUrl = '/Server_Error_Handling_and_implementation/' + ID
 
         // process the form
         $.ajax({

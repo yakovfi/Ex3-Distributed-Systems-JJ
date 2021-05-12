@@ -55,7 +55,7 @@ $(document).ready(function () {
     // process the form
     $.ajax({
       type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-      url: '/users', // the url where we want to POST
+      url: '/Server_Error_Handling_and_implementation', // the url where we want to POST
       contentType: 'application/json',
       data: JSON.stringify({
         "id": $("#id_field").val(),

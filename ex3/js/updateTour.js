@@ -54,7 +54,7 @@ $(document).ready(function () {
         // process the form
         $.ajax({
             type: 'PUT', // define the type of HTTP verb we want to use (PUT for our form)
-            url: '/users/' + ID, // the url where we want to PUT
+            url: '/Server_Error_Handling_and_implementation/' + ID, // the url where we want to PUT
             contentType: 'application/json',
             data: data2,
             processData: false,
