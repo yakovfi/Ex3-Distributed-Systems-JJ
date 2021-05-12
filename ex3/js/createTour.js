@@ -1,5 +1,4 @@
 
-
 $(document).ready(function () {
 
   $("form[name='user_form']").validate({
@@ -12,23 +11,40 @@ $(document).ready(function () {
         minlength: 3
       },
       "start_date": {
+        required: false,
+        date: true,
+        // dateITA: true,
+        // dateLessThan: '#expiredDate'
         //DO WE VERIFY DAY AND MONTHS ?
       },
       "id_field": {
-        minlength: 6
+        required: true,
+        minlength: 3
       },
       "email": {
-        "email": true
+        required: true,
+        email: true,
+      },
+      "cellular": {
+
+        minlength: 7
+
       }
     },
     // Specify validation error messages
     messages: {
-      name: "At least 3 characters long!",
+      name: "At least 3 characters long!!",
       id_field: {
-        digits: "Please enter only digits",
-        minlength: "At least 6 characters long!"
+        // digits: "Please enter only digits",
+        minlength: "At least 3 characters long!"
       },
-      email: "email structure is some@domain "
+      email: {
+        email: "The email should be in the format: abc@domain.tld"
+      }
+    },
+    cellular: {
+      minlength: "Cell phone number should be 7 digits"
+
     }
   });
 

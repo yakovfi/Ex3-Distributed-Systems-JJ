@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $("form[name='user_form']").validate({
         // Specify validation rules
@@ -38,13 +37,11 @@ $(document).ready(function () {
 
         if (!$("#user_form").valid()) return;
 
-
         var data2 = JSON.stringify({
             "name": $("#location_name").val(),
             "country": $("#country_name").val(),
         })
         let myUrl = '/users/' + ID
-
 
         // process the form
         $.ajax({

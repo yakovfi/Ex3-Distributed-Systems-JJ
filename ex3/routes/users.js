@@ -4,7 +4,7 @@ const fs = require('fs');
 const { cpuUsage } = require('process');
 const { use } = require('./routes');
 // variables
-let bb;
+
 const dataPath = './data/users.json';
 
 // helper methods
@@ -28,7 +28,42 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
         callback();
     });
 };
+//--------------------------------------------------------
+function checkDate(field) {
+    var allowBlank = true;
+    var minYear = 1902;
+    var maxYear = (new Date()).getFullYear();
 
+    var errorMsg = "";
+
+    // regular expression to match required date format
+    re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+
+    if (field.value != '') {
+        if (regs = field.value.match(re)) {
+            if (regs[1] < 1 || regs[1] > 31) {
+                errorMsg = "Invalid value for day: " + regs[1];
+            } else if (regs[2] < 1 || regs[2] > 12) {
+                errorMsg = "Invalid value for month: " + regs[2];
+            } else if (regs[3] < minYear || regs[3] > maxYear) {
+                errorMsg = "Invalid value for year: " + regs[3] + " - must be between " + minYear + " and " + maxYear;
+            }
+        } else {
+            errorMsg = "Invalid date format: " + field.value;
+        }
+    } else if (!allowBlank) {
+        errorMsg = "Empty date not allowed!";
+    }
+
+    if (errorMsg != "") {
+        alert(errorMsg);
+        field.focus();
+        return false;
+    }
+
+    return true;
+}
+//--------------------------------------------------------
 
 module.exports = {
     //READ
@@ -48,13 +83,117 @@ module.exports = {
         readFile(data => {
 
             if (data[req.body.id] != undefined) {
-
                 res.status(400).send("Tour already exists!!");
             }
+
             else {
+                let saveKey = [];
+                let i = 0;
+
+                for (var propName in req.body) {
+                    if (propName != "id" && propName != "start_date" && propName != "duration" && propName != "price" && propName != "guide" && propName != "path") {
+
+                        console.log("In verifs validity field ", propName);
+                        res.status(400).send("Invalid fields !!");
+                        return;
+                        // saveKey[i] = propName;
+                        // i++;
+                    }
+                    if (propName == "start_date") {
+                        var date_regex = /^(([0-9][0-9][0-9][0-9])\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01]))$/;
+                        if (!date_regex.test(req.body.start_date)) {
+                            console.log(req.body.start_date);
+                            res.status(400).send("Invalid start_date field!!");
+                            return;
+                        }
+                    }
+
+                    if (propName == "guide") {
+                        for (var prop in req.body.guide) {
+
+                            if (prop == "name") {
+                                var name_regex = /^[A-Za-z]+$/;
+                                if (!name_regex.test(req.body.guide.name)) {
+                                    res.status(400).send("Invalid guide name field !!");
+                                    return;
+                                }
+                            }
+                            if (prop == "email") {
+                                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                                if (!regex.test(req.body.guide.email)) {
+                                    res.status(400).send("Invalid guide email field");
+                                    return
+                                }
+                            }
+                            if (prop == "cellular") {
+
+                                let regex = /^[0-9]$/;
+                                if (!regex.test(req.body.guide.cellular) && req.body.guide.cellular.length < 7) {
+                                    res.status(400).send("Invalid guide cellular field");
+                                    return
+                                }
+                            }
+                            // if (prop.valueOf() != "name" && prop.valueOf() != "email" && prop.valueOf() != "cellular") {
+                            //     console.log(prop.valueOf());
+                            //     res.status(400).send("Invalid guide field !!");
+                            //     console.log("In verifs validity field ", prop);
+                            // }
+                        }
+                    }
+
+                    // let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    // if (!regex.test(req.body.email)) {
+                    //     res.status(400).send("The email should be in the format: abc@domain.tld");
+                    //     return
+                    // }
+                }
+                console.log("Out verifs validity field");
+
+                // if (req.body.id == undefined || req.body.id == null) {
+                //     res.status(400).send("id is a required field");
+                //     return;
+                // }
+                // else if ((req.body.id).length < 3) {
+
+                //     res.status(400).send("The name must contain at least 3 letters");
+                //     return;
+                // }
+
+                // if (req.body.start_date == undefined || req.body.start_date == null) {
+                //     res.status(400).send("id is a required field");
+                //     return;
+                // }
+                // else if (!checkDate(req.body.start_date)) {
+
+                //     res.status(400).send("date is a required field ");
+                //     return;
+                // }
+                // if (saveKey.length < 7) {
+                //     res.status(400).send("Fields are missing1");
+                //     return;
+
+                // }
+                // else if (saveKey.length > 7) {
+
+                //     res.status(400).send("Invalid field!");
+                //     return;
+
+                // }
+                // else {
+                //     for (i = 0; i < saveKey.length; i++) {
+
+                //         if (saveKey[i] !== "id" && saveKey[i] !== "start_date" && saveKey[i] !== "duration" && saveKey[i] !== "price"
+                //             && saveKey[i] !== "name" && saveKey[i] !== "email" && saveKey[i] !== "cellular") {
+                //             res.status(400).send("Invalid field!!");
+                //             return;
+                //         }
+                //     }
+                // }
+
                 data[req.body.id] = req.body;
 
                 writeFile(JSON.stringify(data, null, 2), () => {
+
                     res.status(200).send('new user added');
                 });
             }
@@ -72,23 +211,20 @@ module.exports = {
                 return;
             }
             else {
-                let flag = false;
-                let saveKey = [];
+                // let flag = false;
+                // let saveKey = [];
                 let saveKeyGuide = [];
                 let i = 0;
-                for (var propName in req.body) {
-                    saveKey[i] = propName;
-                    i++;
-                }
+                // for (var propName in req.body) {
+                //     saveKey[i] = propName;
+                //     i++;
+                // }
 
 
                 for (var prop in req.body.guide) {
                     saveKeyGuide[i] = prop;
                     i++;
                 }
-
-
-
                 let userId = req.params["id"];
                 // let i = 0;
                 // saveKey[i] === "name" || saveKey[i] === "country"
@@ -147,8 +283,6 @@ module.exports = {
                     else {
                         data[userId].price = req.body.price;
                     }
-
-
                 }
                 //-----------------------------------
                 if (req.body.duration) {
@@ -156,13 +290,10 @@ module.exports = {
 
                     if (!data[userId]) {
                         return res.status(400).send("id doesn't exist!");
-
                     }
-
                     else {
                         data[userId].duration = req.body.duration;
                     }
-
 
                 }
                 if (req.body.guide) {
@@ -174,8 +305,6 @@ module.exports = {
                     else {
 
                         for (let i = 4; i < saveKeyGuide.length; i++) {
-
-
                             if (saveKeyGuide[i] !== "name" && saveKeyGuide[i] !== "email" && saveKeyGuide[i] !== "cellular") {
                                 flagErrGuide = true;
                                 res.status(400).send(`The ${saveKeyGuide[i]} field is invalid into guide field`);
@@ -190,10 +319,7 @@ module.exports = {
                             data[userId].guide.cellular = req.body.guide.cellular;
 
                     }
-
                 }
-
-
                 writeFile(JSON.stringify(data, null, 2), () => {
                     return res.status(200).send(`users id: updated`);
                 });

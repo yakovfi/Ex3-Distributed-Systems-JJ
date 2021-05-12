@@ -14,7 +14,8 @@ $(document).ready(function () {
                 minlength: 6
             },
             "email": {
-                "email": true
+                required: true,
+                email: true,
             }
         },
         // Specify validation error messages
@@ -24,7 +25,9 @@ $(document).ready(function () {
                 digits: "Please enter only digits",
                 minlength: "At least 6 characters long!"
             },
-            email: "email structure is some@domain "
+            email: {
+                email: "The email should be in the format: abc@domain.tld"
+            },
         }
     });
 

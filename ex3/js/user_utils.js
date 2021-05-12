@@ -16,7 +16,8 @@ $(document).ready(function () {
         minlength: 6
       },
       "email": {
-        "email": true
+        required: true,
+        email: true
       }
     },
     // Specify validation error messages
