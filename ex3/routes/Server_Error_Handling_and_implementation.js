@@ -70,7 +70,6 @@ module.exports = {
                         }
                         var duration_regex = /^[0-9]*$/;
                         if (!duration_regex.test(req.body.duration)) {
-                            console.log(req.body.duration);
                             res.status(400).send("Invalid duration field !!");
                             return;
                         }
@@ -148,8 +147,6 @@ module.exports = {
 
                         if (prop == "name") {
                             var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
-                            console.log(req.body.name);
-                            console.log(name_regex.test(req.body.name));
                             if (!name_regex.test(req.body.name)) {
                                 res.status(400).send("Invalid Location Name field !!");
                                 return;
@@ -202,7 +199,6 @@ module.exports = {
                             }
                             var duration_regex = /^^$|[0-9]*$/;
                             if (!duration_regex.test(req.body.duration)) {
-                                console.log(req.body.duration);
                                 res.status(400).send("Invalid duration field !!");
                                 return;
                             }
