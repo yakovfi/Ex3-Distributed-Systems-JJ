@@ -64,6 +64,10 @@ module.exports = {
                     }
 
                     if (propName == "duration") {
+                        if (req.body.duration < 0) {
+                            res.status(400).send("The duration must be positive!!");
+                            return;
+                        }
                         var duration_regex = /^[0-9]*$/;
                         if (!duration_regex.test(req.body.duration)) {
                             console.log(req.body.duration);
@@ -73,6 +77,10 @@ module.exports = {
                     }
 
                     if (propName == "price") {
+                        if (req.body.price < 0) {
+                            res.status(400).send("The price must be positive!!");
+                            return;
+                        }
                         var price_regex = /^[0-9]*$/;
                         if (!price_regex.test(req.body.price)) {
                             res.status(400).send("Invalid price field !!");
@@ -188,6 +196,10 @@ module.exports = {
                         }
 
                         if (propName == "duration") {
+                            if (req.body.duration < 0) {
+                                res.status(400).send("The duration must be positive!!");
+                                return;
+                            }
                             var duration_regex = /^^$|[0-9]*$/;
                             if (!duration_regex.test(req.body.duration)) {
                                 console.log(req.body.duration);
@@ -197,6 +209,10 @@ module.exports = {
                         }
 
                         if (propName == "price") {
+                            if (req.body.price < 0) {
+                                res.status(400).send("The price must be positive!!");
+                                return;
+                            }
                             var price_regex = /^^$|[0-9]*$/;
                             if (!price_regex.test(req.body.price)) {
                                 res.status(400).send("Invalid price field !!");
