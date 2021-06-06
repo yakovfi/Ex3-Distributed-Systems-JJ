@@ -3,31 +3,35 @@ const { json } = require('body-parser');
 const fs = require('fs');
 const { cpuUsage } = require('process');
 const { use } = require('./routes');
+const { mongo } = require('../data/mongoose');
+const Tour = require('../models/Tours')
+const Guide = require('../models/Guide')
+
 // variables
 
 const dataPath = './data/tours.json';
 
 // helper methods
-const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
-    fs.readFile(filePath, encoding, (err, data) => {
-        if (err) {
-            console.log(err);
-        }
-        if (!data) data = "{}";
-        callback(returnJson ? JSON.parse(data) : data);
-    });
-};
+// const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
+//     fs.readFile(filePath, encoding, (err, data) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         if (!data) data = "{}";
+//         callback(returnJson ? JSON.parse(data) : data);
+//     });
+// };
 
-const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
+// const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
 
-    fs.writeFile(filePath, fileData, encoding, (err) => {
-        if (err) {
-            console.log(err);
-        }
+//     fs.writeFile(filePath, fileData, encoding, (err) => {
+//         if (err) {
+//             console.log(err);
+//         }
 
-        callback();
-    });
-};
+//         callback();
+//     });
+// };
 //--------------------------------------------------------
 
 module.exports = {
@@ -43,7 +47,7 @@ module.exports = {
     },
 
     // CREATE
-    createTour: function (req, res) {
+    create_tours: function (req, res) {
 
         readFile(data => {
 
@@ -70,6 +74,7 @@ module.exports = {
                         }
                         var duration_regex = /^[0-9]*$/;
                         if (!duration_regex.test(req.body.duration)) {
+                            console.log(req.body.duration);
                             res.status(400).send("Invalid duration field !!");
                             return;
                         }
@@ -147,6 +152,8 @@ module.exports = {
 
                         if (prop == "name") {
                             var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
+                            console.log(req.body.name);
+                            console.log(name_regex.test(req.body.name));
                             if (!name_regex.test(req.body.name)) {
                                 res.status(400).send("Invalid Location Name field !!");
                                 return;
@@ -199,6 +206,7 @@ module.exports = {
                             }
                             var duration_regex = /^^$|[0-9]*$/;
                             if (!duration_regex.test(req.body.duration)) {
+                                console.log(req.body.duration);
                                 res.status(400).send("Invalid duration field !!");
                                 return;
                             }

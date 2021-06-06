@@ -32,9 +32,12 @@ $(document).ready(function () {
             }
             createObjectsArray(result);
             dataTrip();
+
+            // להוסיף סטטוס
         },
         error: function (err) {
-            alert(err);
+            console.log("err", err);
+            // להוסיף סטטוס
         }
     });
 
