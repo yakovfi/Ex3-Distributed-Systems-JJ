@@ -2,21 +2,21 @@ const mongoose = require('mongoose');
 const id_validator = require ('mongoose-id-validator');
 
 var TourSchema = new mongoose.Schema({
-    Trip_Id: {
+    id: {
         type: String,
         required: true,
         trim: true
     },
-    Departure_Date: {
+    start_date: {
         type: String,
         required: true
     },
-    Trip_Duration: {
+    duration: {
         type: Number,
         required: true,
         trim: true
     },
-    Trip_Price: {
+    price: {
         type: Number,
         required: true,
         trim: true

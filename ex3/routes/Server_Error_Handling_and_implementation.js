@@ -52,17 +52,17 @@ module.exports = {
 
         // await Customer.create({ name: 'A', age: 30, email: 'a@foo.bar' });
         // await Customer.create({ name: 'B', age: 28, email: 'b@foo.bar' });
-      
+
         // Find all customers
         Tour.find().sort('Trip_Id').then(Tours => res.send(Tours)
-    ).catch (e=> res.status(500).send())
+        ).catch(e => res.status(500).send())
         // const docs = Tour.find();
         // console.log(docs);
         // res.send(!docs ? JSON.parse("{}") : JSON.parse(docs));
     },
 
     // CREATE
-    createTour: function (req, res) {
+    createTour: async function (req, res) {
 
         // readFile(data => {
 
@@ -144,16 +144,106 @@ module.exports = {
         //         // });
         //     }
         // },
-            // true);
-            console.log(req.body);
+        // true);
+
+
+        // if (req.body.id != undefined) {
         const tour = new Tour(req.body);
+        //         }
+        let isExist = false;
+        let all_the_tours = await Tour.find({ 'id': { $eq: req.body.id } }).then((result) => {
+            console.log(result.length);
 
-            tour.save().then(tour=>
-                res.status(201).send(tour)
-            ).catch(e=>res.status(400).send(e));
-    },
-
-    // UPDATE
+            if (result.length != 0) {
+                console.log("in ");
+                res.status(400).send("Tour already exists!!");
+                isExist = true;
+                return;
+            }
+        });
+        console.log("out ");
+        
+        // if (all_the_tours.id == req.body.id) {
+            //     return;
+            // }
+            
+            // else {
+                
+                for (var propName in req.body) {
+                    
+                    if (propName == "start_date") {
+                        var date_regex = /^(([0-9][0-9][0-9][0-9])\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01]))$/;
+                        if (!date_regex.test(req.body.start_date)) {
+                            res.status(400).send("Invalid start_date field !!");
+                            return;
+                        }
+                    }
+                    
+                    if (propName == "duration") {
+                        if (req.body.duration < 0) {
+                            res.status(400).send("The duration must be positive!!");
+                            return;
+                        }
+                        var duration_regex = /^[0-9]*$/;
+                        if (!duration_regex.test(req.body.duration)) {
+                            res.status(400).send("Invalid duration field !!");
+                            return;
+                        }
+                    }
+                    
+                    if (propName == "price") {
+                        if (req.body.price < 0) {
+                            res.status(400).send("The price must be positive!!");
+                            return;
+                        }
+                        var price_regex = /^[0-9]*$/;
+                        if (!price_regex.test(req.body.price)) {
+                            res.status(400).send("Invalid price field !!");
+                            return;
+                        }
+                    }
+                    
+                    if (propName == "guide") {
+                        for (var prop in req.body.guide) {
+                            
+                            if (prop == "name") {
+                                var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
+                                if (!name_regex.test(req.body.guide.name)) {
+                                    res.status(400).send("Invalid guide name field !!");
+                                    return;
+                                }
+                            }
+                            if (prop == "email") {
+                                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                                if (!regex.test(req.body.guide.email)) {
+                                    res.status(400).send("Invalid guide email field");
+                                    return;
+                                }
+                            }
+                            if (prop == "cellular") {
+                                
+                                let regex = /^[0-9]*$/;
+                                if (!regex.test(req.body.guide.cellular) || req.body.guide.cellular.length < 7) {
+                                    res.status(400).send("Invalid guide cellular field");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // }
+                }
+                console.log(isExist);
+                if (isExist == false) {
+                    console.log("in the second mongo");
+                    tour.save().then(tour =>
+                        res.status(201).send(tour)
+                        ).catch(e => res.status(400).send(e));
+                    }
+                    
+                },
+                
+                // UPDATE
     update_user: function (req, res) {
         readFile(data => {
             if (!req.params["id"]) {

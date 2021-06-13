@@ -58,10 +58,10 @@ $(document).ready(function () {
       url: '/Server_Error_Handling_and_implementation', // the url where we want to POST
       contentType: 'application/json',
       data: JSON.stringify({
-        "Trip_Id": $("#id_field").val(),
-        "Departure_Date": $("#start_date").val(),
-        "Trip_Duration": Number($("#Duration").val()),
-        "Trip_Price": Number($("#price").val()),
+        "id": $("#id_field").val(),
+        "start_date": $("#start_date").val(),
+        "duration": Number($("#Duration").val()),
+        "price": Number($("#price").val()),
         "Guide_Name": String($("#gname").val()),
         "Guide_Email": String($("#gemail").val()),
         "Guide_Cell": Number($("#cellular").val()),

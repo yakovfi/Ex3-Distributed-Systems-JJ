@@ -157,10 +157,10 @@ $(document).ready(function () {
             var cell1 = row.insertCell(0);
             var cell2 = row.insertCell(1);
             cell1.innerHTML =
-                "Name of the Tour: " + objArr[i].Trip_Id + "<br />" + "<br />" +
-                "Departure Date: " + objArr[i].Departure_Date + "<br />" + "<br />" +
-                "Duration: " + objArr[i].Trip_Duration + "<br />" + "<br />" +
-                "Price: " + objArr[i].Trip_Price;
+                "Name of the Tour: " + objArr[i].id + "<br />" + "<br />" +
+                "Departure Date: " + objArr[i].start_date + "<br />" + "<br />" +
+                "Duration: " + objArr[i].duration + "<br />" + "<br />" +
+                "Price: " + objArr[i].price;
             cell2.innerHTML =
                 "<button class= details id=" + a + ">Deleting the trip </button>" + "<br />" +
                 "<button class= details id=" + b + ">Details of the guide </button>" + "<br />" +
