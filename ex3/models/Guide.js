@@ -1,17 +1,17 @@
 const mongoose = require('mongoose')
-const validator = require('validator')
+const id_validator = require ('mongoose-id-validator');
 
-var UserSchema = new mongoose.Schema({
+var GuideSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,// שדה חובה
-        trim: true// לא מכיל רווחים
+        required: true,
+        trim: true
     },
     email: {
         type: String,
-        required: true, // שדה חובה
+        required: true,
         trim: true,
-        lowercase: true,// הערך שקיבלנו יומר לאותיוץ קטנות תמיד
+        lowercase: true,
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
@@ -41,11 +41,38 @@ var UserSchema = new mongoose.Schema({
 }, { timestamps: true }
 );
 
-TaskSchema.plugin(id_validator);
-TaskSchema.index("completed");
+GuideSchema.plugin(id_validator);
+GuideSchema.index("completed");
+const Guide = mongoose.model('Guide', GuideSchema);
+
+module.exports = Guide
 
 
-const User = mongoose.model('User', UserSchema);
 
-// console.log('users: ', User.find({ name: 'meny' }))
-module.exports = User
+
+
+
+
+
+// const mongoose = require('mongoose');
+// const id_validator = require ('mongoose-id-validator');
+
+// var TourSchema = new mongoose.Schema({
+//     description: {
+//         type: String,
+//         required: true,
+//         trim: true
+//     },
+//     completed: {
+//         type: Boolean,
+//         default: false
+//     },
+//     author: { type: mongoose.Schema.Types.ObjectId, ref: 'Guide',required:true},
+// }, { timestamps: true });
+// TourSchema.plugin(id_validator);
+// TourSchema.index("completed");
+
+
+// const Tour = mongoose.model('Tour4', TourSchema );
+
+// module.exports = Tour

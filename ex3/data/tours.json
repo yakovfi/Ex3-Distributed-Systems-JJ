@@ -1,4 +1,25 @@
 {
+  "Europe1": {
+    "id": "Europe1",
+    "start_date": "0001-01-01",
+    "duration": 1,
+    "price": 4156,
+    "guide": {
+      "name": "ghrzsg'rzseg",
+      "email": "Jonas@gzez.vop",
+      "cellular": "4156468416"
+    },
+    "path": [
+      {
+        "name": "פיצה",
+        "country": "איטליה"
+      },
+      {
+        "name": "מוזיאון השאווה",
+        "country": "אמסטרדם"
+      }
+    ]
+  },
   "Europe2": {
     "id": "Europe2",
     "start_date": "1986-01-01",
@@ -9,7 +30,20 @@
       "email": "jonassp@post.jce.ac.il",
       "cellular": "0539303265"
     },
-    "path": []
+    "path": [
+      {
+        "name": "Pizza",
+        "country": "France"
+      },
+      {
+        "name": "Millano",
+        "country": "Italy"
+      },
+      {
+        "name": "Pizza",
+        "country": "France"
+      }
+    ]
   },
   "Europe4": {
     "id": "Europe4",
@@ -21,6 +55,15 @@
       "email": "hgec2701@gmail.com",
       "cellular": "0502333550"
     },
-    "path": []
+    "path": [
+      {
+        "name": "Pizza",
+        "country": "France"
+      },
+      {
+        "name": "Millano",
+        "country": "Italy"
+      }
+    ]
   }
 }

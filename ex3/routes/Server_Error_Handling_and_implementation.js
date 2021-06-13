@@ -1,136 +1,156 @@
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 const fs = require('fs');
+let Guide = require('../models/Guide');
+const Tour = require('../models/Tour');
+const mongoose = require('../db/mongoose');
+const { Mongoose } = require('mongoose');
 const { cpuUsage } = require('process');
-const { use } = require('./routes');
-const { mongo } = require('../data/mongoose');
-const Tour = require('../models/Tours')
-const Guide = require('../models/Guide')
-
+// const { use } = require('./routes');
 // variables
 
 const dataPath = './data/tours.json';
 
 // helper methods
-// const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
-//     fs.readFile(filePath, encoding, (err, data) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         if (!data) data = "{}";
-//         callback(returnJson ? JSON.parse(data) : data);
-//     });
-// };
+const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
+    fs.readFile(filePath, encoding, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        if (!data) data = "{}";
+        callback(returnJson ? JSON.parse(data) : data);
+    });
+};
 
-// const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
+const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') => {
 
-//     fs.writeFile(filePath, fileData, encoding, (err) => {
-//         if (err) {
-//             console.log(err);
-//         }
+    fs.writeFile(filePath, fileData, encoding, (err) => {
+        if (err) {
+            console.log(err);
+        }
 
-//         callback();
-//     });
-// };
+        callback();
+    });
+};
 //--------------------------------------------------------
 
 module.exports = {
     //READ
     read_users: function (req, res) {
-        fs.readFile(dataPath, 'utf8', (err, data) => {
-            if (err) {
-                res.status(500).send("server error");
-            }
-            else
-                res.send(!data ? JSON.parse("{}") : JSON.parse(data));
-        });
+        // fs.readFile(dataPath, 'utf8', (err, data) => {
+        //     if (err) {
+        //         res.status(500).send("server error");
+        //     }
+        //     else
+        //         res.send(!data ? JSON.parse("{}") : JSON.parse(data));
+        // });
+        // console.log('test1', mongoose)
+        // mongoose.connect('mongodb://localhost:27017/Shuru-TuruDB', { useNewUrlParser: true });
+        // console.log(mongoose, 'mongoose')
+        // // const customerSchema = mongoose.Schema({ name: String, age: Number, email: String });
+        // const Customer = mongoose.model('tours', ToursSchema);
+
+        // await Customer.create({ name: 'A', age: 30, email: 'a@foo.bar' });
+        // await Customer.create({ name: 'B', age: 28, email: 'b@foo.bar' });
+      
+        // Find all customers
+        Tour.find().sort('Trip_Id').then(Tours => res.send(Tours)
+    ).catch (e=> res.status(500).send())
+        // const docs = Tour.find();
+        // console.log(docs);
+        // res.send(!docs ? JSON.parse("{}") : JSON.parse(docs));
     },
 
     // CREATE
-    create_tours: function (req, res) {
+    createTour: function (req, res) {
 
-        readFile(data => {
+        // readFile(data => {
 
-            if (data[req.body.id] != undefined) {
-                res.status(400).send("Tour already exists!!");
-            }
+        //     if (data[req.body.id] != undefined) {
+        //         res.status(400).send("Tour already exists!!");
+        //     }
 
-            else {
+        //     else {
 
-                for (var propName in req.body) {
+        //         for (var propName in req.body) {
 
-                    if (propName == "start_date") {
-                        var date_regex = /^(([0-9][0-9][0-9][0-9])\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01]))$/;
-                        if (!date_regex.test(req.body.start_date)) {
-                            res.status(400).send("Invalid start_date field !!");
-                            return;
-                        }
-                    }
+        //             if (propName == "start_date") {
+        //                 var date_regex = /^(([0-9][0-9][0-9][0-9])\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01]))$/;
+        //                 if (!date_regex.test(req.body.start_date)) {
+        //                     res.status(400).send("Invalid start_date field !!");
+        //                     return;
+        //                 }
+        //             }
 
-                    if (propName == "duration") {
-                        if (req.body.duration < 0) {
-                            res.status(400).send("The duration must be positive!!");
-                            return;
-                        }
-                        var duration_regex = /^[0-9]*$/;
-                        if (!duration_regex.test(req.body.duration)) {
-                            console.log(req.body.duration);
-                            res.status(400).send("Invalid duration field !!");
-                            return;
-                        }
-                    }
+        //             if (propName == "duration") {
+        //                 if (req.body.duration < 0) {
+        //                     res.status(400).send("The duration must be positive!!");
+        //                     return;
+        //                 }
+        //                 var duration_regex = /^[0-9]*$/;
+        //                 if (!duration_regex.test(req.body.duration)) {
+        //                     res.status(400).send("Invalid duration field !!");
+        //                     return;
+        //                 }
+        //             }
 
-                    if (propName == "price") {
-                        if (req.body.price < 0) {
-                            res.status(400).send("The price must be positive!!");
-                            return;
-                        }
-                        var price_regex = /^[0-9]*$/;
-                        if (!price_regex.test(req.body.price)) {
-                            res.status(400).send("Invalid price field !!");
-                            return;
-                        }
-                    }
+        //             if (propName == "price") {
+        //                 if (req.body.price < 0) {
+        //                     res.status(400).send("The price must be positive!!");
+        //                     return;
+        //                 }
+        //                 var price_regex = /^[0-9]*$/;
+        //                 if (!price_regex.test(req.body.price)) {
+        //                     res.status(400).send("Invalid price field !!");
+        //                     return;
+        //                 }
+        //             }
 
-                    if (propName == "guide") {
-                        for (var prop in req.body.guide) {
+        //             if (propName == "guide") {
+        //                 for (var prop in req.body.guide) {
 
-                            if (prop == "name") {
-                                var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
-                                if (!name_regex.test(req.body.guide.name)) {
-                                    res.status(400).send("Invalid guide name field !!");
-                                    return;
-                                }
-                            }
-                            if (prop == "email") {
-                                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-                                if (!regex.test(req.body.guide.email)) {
-                                    res.status(400).send("Invalid guide email field");
-                                    return;
-                                }
-                            }
-                            if (prop == "cellular") {
+        //                     if (prop == "name") {
+        //                         var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
+        //                         if (!name_regex.test(req.body.guide.name)) {
+        //                             res.status(400).send("Invalid guide name field !!");
+        //                             return;
+        //                         }
+        //                     }
+        //                     if (prop == "email") {
+        //                         let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        //                         if (!regex.test(req.body.guide.email)) {
+        //                             res.status(400).send("Invalid guide email field");
+        //                             return;
+        //                         }
+        //                     }
+        //                     if (prop == "cellular") {
 
-                                let regex = /^[0-9]*$/;
-                                if (!regex.test(req.body.guide.cellular) || req.body.guide.cellular.length < 7) {
-                                    res.status(400).send("Invalid guide cellular field");
-                                    return;
-                                }
-                            }
-                        }
-                    }
+        //                         let regex = /^[0-9]*$/;
+        //                         if (!regex.test(req.body.guide.cellular) || req.body.guide.cellular.length < 7) {
+        //                             res.status(400).send("Invalid guide cellular field");
+        //                             return;
+        //                         }
+        //                     }
+        //                 }
+        //             }
 
-                }
+        //         }
 
-                data[req.body.id] = req.body;
+        //         // data[req.body.id] = req.body;
 
-                writeFile(JSON.stringify(data, null, 2), () => {
+        //         // writeFile(JSON.stringify(data, null, 2), () => {
 
-                    res.status(200).send('new user added');
-                });
-            }
-        },
-            true);
+        //         //     res.status(200).send('new user added');
+        //         // });
+        //     }
+        // },
+            // true);
+            console.log(req.body);
+        const tour = new Tour(req.body);
+
+            tour.save().then(tour=>
+                res.status(201).send(tour)
+            ).catch(e=>res.status(400).send(e));
     },
 
     // UPDATE
@@ -152,8 +172,6 @@ module.exports = {
 
                         if (prop == "name") {
                             var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
-                            console.log(req.body.name);
-                            console.log(name_regex.test(req.body.name));
                             if (!name_regex.test(req.body.name)) {
                                 res.status(400).send("Invalid Location Name field !!");
                                 return;
@@ -206,7 +224,6 @@ module.exports = {
                             }
                             var duration_regex = /^^$|[0-9]*$/;
                             if (!duration_regex.test(req.body.duration)) {
-                                console.log(req.body.duration);
                                 res.status(400).send("Invalid duration field !!");
                                 return;
                             }

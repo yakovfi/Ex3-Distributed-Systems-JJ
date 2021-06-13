@@ -4,6 +4,10 @@ const express = require('express'),
     cors = require('cors'),
     routers = require('./routes/routes.js');
 const port = 3001;
+require('./db/mongoose')
+// const GuideRouter = require('./routes/Guide')
+const TourRouter = require('./routes/Tour')
+
 
 const app = express();
 app.use(express.static(__dirname + '/public'));
@@ -17,12 +21,14 @@ app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/myCss', express.static(path.join(__dirname, 'css')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
-//restfull 
+//restfull
 //app.use(cors());
 app.use(express.json());
+// app.use(GuideRouter)
+app.use(TourRouter)
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', routers);
+// app.use('/', routers);
 
 const server = app.listen(port, () => {
     console.log('listening on port %s...', server.address().port);
