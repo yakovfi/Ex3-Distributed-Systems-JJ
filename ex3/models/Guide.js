@@ -2,12 +2,12 @@ const mongoose = require('mongoose')
 const id_validator = require ('mongoose-id-validator');
 
 var GuideSchema = new mongoose.Schema({
-    Guide_Name: {
+    Name: {
         type: String,
         required: true,
         trim: true
     },
-    Guide_Email: {
+    Email: {
         type: String,
         required: true,
         trim: true,
@@ -18,7 +18,7 @@ var GuideSchema = new mongoose.Schema({
             }
         }
     },
-    Guide_Cell: {
+    Cell: {
         type: Number,
         required: true,
         trim: true

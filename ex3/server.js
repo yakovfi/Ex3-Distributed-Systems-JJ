@@ -17,6 +17,7 @@ app.use('/main', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/list_users', express.static(path.join(__dirname, 'html/index.html')));
 app.use('/update_tour/id', express.static(path.join(__dirname, 'html/update_data.html')));
 app.use('/add_tour', express.static(path.join(__dirname, 'html/createTour.html')));//Upload file add_user_form.html
+app.use('/add_guide', express.static(path.join(__dirname, 'html/createGuide.html')));//Upload file add_user_form.html
 app.use('/js', express.static(path.join(__dirname, 'js')));
 app.use('/myCss', express.static(path.join(__dirname, 'css')));
 app.use('/public', express.static(path.join(__dirname, 'public')));

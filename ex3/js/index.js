@@ -43,8 +43,14 @@ $(document).ready(function () {
     $("#Adding_a_new_Trip").click(function () {
         window.location.replace('/add_tour');
     });
-    $("#Adding_new_Trip").click(function () {
+    $("#Adding_a_new_Guide").click(function () {
+        window.location.replace('/add_guide');
+    });
+    $("#Adding_a_new_Trip").click(function () {
         window.location.replace('/add_tour');
+    });
+    $("#Adding_new_Guide").click(function () {
+        window.location.replace('/add_guide');
     });
     function createObjectsArray(res) {
         for (let i = 0; i < keys.length; i++) {

@@ -1,0 +1,60 @@
+<!-- index.html -->
+<!doctype html>
+<html>
+
+<head>
+    <title>ADD Guide</title>
+
+    <link rel="stylesheet" href="myCss/client.css">
+    <!-- load bootstrap via CDN -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js
+    "></script> <!-- load jquery via CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="/js/createGuide.js">
+    </script> <!-- load our javascript file -->
+</head>
+
+<body>
+
+    <div class="first">
+        <h2>Add a new Guide</h2>
+    </div>
+    <!-- OUR FORM -->
+    <div class="container">
+        <form id="user_form" name="user_form" method="POST">
+
+            <!-- Guide name -->
+            <div id="name-group" class="form-group">
+                <label for="gname">Guide name:</label>
+                <input type="text" class="form-control" name="gname" id="gname" placeholder="write guide name here"
+                    required>
+                <!-- errors will go here -->
+            </div>
+
+            <!-- NAME -->
+            <div id="name-group" class="form-group">
+                <label for="gemail">Guide's email:</label>
+                <input type="email" class="form-control" name="gemail" id="gemail"
+                    placeholder="write guide's email here" required>
+                <!-- errors will go here -->
+            </div>
+
+            <!-- NAME -->
+            <div id="name-group" class="form-group">
+                <label for="gcell">Guide's cellular:</label>
+                <input type="number" class="form-control" name="cellular" id="cellular"
+                    placeholder="write guide's cell number here" required>
+                <!-- errors will go here -->
+            </div>
+
+
+
+            <button type="submit" class="btn ">Submit<span class="submit"></span></button>
+            <input type="button" class="btn " value="Back" onclick="backToMain()">
+
+        </form>
+    </div>
+
+</body>
+
+</html>

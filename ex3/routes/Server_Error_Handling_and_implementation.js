@@ -5,7 +5,6 @@ let Guide = require('../models/Guide');
 const Tour = require('../models/Tour');
 const mongoose = require('../db/mongoose');
 const { Mongoose } = require('mongoose');
-const { cpuUsage } = require('process');
 // const { use } = require('./routes');
 // variables
 
@@ -35,6 +34,63 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
 //--------------------------------------------------------
 
 module.exports = {
+
+    read_Guide: function (req, res) {
+
+        // Find all tours
+        Guide.find().sort('Name').then(Guides => res.send(Guides)
+        ).catch(e => res.status(500).send())
+
+    },
+
+    // CREATE
+    create_Guide: async function (req, res) {
+
+        const guide = new Guide(req.body);
+        //         }
+        let isExist = false;
+        //Verify if the tour already exist.
+        let all_the_guides = await Guide.find({ 'Name': { $eq: req.body.name } }).then((result) => {
+
+            if (result.length != 0) {
+                res.status(400).send("Guide already exists !!");
+                isExist = true;
+                return;
+            }
+        });
+
+        for (var propName in req.body) {
+
+            if (prop == "Name") {
+                var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
+                if (!name_regex.test(req.body.Name)) {
+                    res.status(400).send("Invalid guide name field !!");
+                    return;
+                }
+            }
+            if (prop == "Email") {
+                let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                if (!regex.test(req.body.Email)) {
+                    res.status(400).send("Invalid guide email field");
+                    return;
+                }
+            }
+            if (prop == "Cellular") {
+
+                let regex = /^[0-9]*$/;
+                if (!regex.test(req.body.Cellular) || req.body.Cellular.length < 7) {
+                    res.status(400).send("Invalid guide cellular field");
+                    return;
+                }
+            }
+        }
+        if (isExist == false) {
+            guide.save().then(tour =>
+                res.status(201).send(tour)
+            ).catch(e => res.status(400).send(e));
+        }
+    },
+
     //READ
     read_Tour: function (req, res) {
 
