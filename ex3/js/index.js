@@ -236,7 +236,6 @@ $(document).ready(function () {
         cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
 
         let delete_all_id = "delete_all_id";
-        
         while (objArr[nameId].path[countIndex] != undefined) {
             let button = "button" + counter;
             cell1.innerHTML +=
@@ -348,8 +347,6 @@ $(document).ready(function () {
                     success: function () {
 
                         location.reload();
-                        // trackTable(id_button_track_view, nameId);
-                        // location.reload();
                     },
                     error: function () {
                         alert("Cannot access to JSON");

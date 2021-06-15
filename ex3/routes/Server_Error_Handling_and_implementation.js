@@ -165,12 +165,11 @@ module.exports = {
                 }
 
                 let identical = false;
-                console.log(identical);
                 await Tour.find({
                     "$and": [
                         { "id": userId },
-                        {"path.name":req.body.name},
-                        {"path.country":req.body.country}
+                        { "path.name": req.body.name },
+                        { "path.country": req.body.country }
                     ]
                 }
                 ).then(
@@ -180,7 +179,6 @@ module.exports = {
                         }
                     }
                 ).catch(e => res.status(500).send());
-                console.log(identical);
                 // data[userId].path.forEach(e => {
                 //     if (e.name == req.body.name && e.country == req.body.country) {
                 //         identical = true;
@@ -329,7 +327,7 @@ module.exports = {
     // true);
     // },
     // DELETE
-    delete_user: function (req, res) {
+    delete_user: async function (req, res) {
         //     readFile(data => {
 
         //         const userId = req.params["id"];
@@ -375,15 +373,42 @@ module.exports = {
         else {
 
             const userId = req.params["id"];
-            if (userId != undefined) {
-
+            if (req.body == undefined) {
+                console.log("in the general delete")
                 // const tour = new Tour(req.body);
                 // tour.remove({"id": req.body.id});
-                Tour.findOneAndDelete({ "id": userId }).then((result) => {
+                await Tour.findOneAndDelete({ "id": userId }).then((result) => {
                     if (result) {
                         res.status(200).send(`users id:${req.body.id} removed`);
                     }
                 });
+            }
+            //Delete path (You have to send "delete":true in the body)
+            else if(req.body.delete === true){
+                Tour.updateOne(
+                    {"id":userId},
+                    {$set: {path: []}}
+                ).then(
+                    (result) => {
+                        if (result) {
+                            res.status(200).send("Deleted all the path")
+                        }
+                    }
+                ).catch(e => res.status(500).send())
+            }
+            //Delete one location (You have to send the name and country of the location in the body)
+            else{
+                Tour.updateOne(
+                    { 'id': userId }, 
+                    { $pull: { path: {"$and":[{ name: req.body.name },{country:req.body.country} ]}} },
+                   
+                ).then(
+                    (result) => {
+                        if (result) {
+                            res.status(200).send("Location removed")
+                        }
+                    }
+                ).catch(e => res.status(500).send())
             }
         }
     }
