@@ -328,42 +328,7 @@ module.exports = {
     // },
     // DELETE
     delete_user: async function (req, res) {
-        //     readFile(data => {
 
-        //         const userId = req.params["id"];
-        //         // add the new user
-        //         if (req.body.delete != undefined) {
-        //             data[userId].path.splice(0, data[userId].path.length);//important function!!!!!!!!!!!
-        //         }
-
-
-
-        //         else if (req.body.country != undefined) {
-        //             let index_to_del = 0;
-        //             data[userId].path.forEach(function (part, index) {
-
-        //                 if (this[index].name == req.body.name && this[index].country == req.body.country) {
-        //                     index_to_del = index;
-        //                     // delete this[index];
-        //                 }
-
-        //             }, data[userId].path);
-
-        //             data[userId].path.splice(index_to_del, 1);
-
-        //         }
-        //         else
-        //             //---------else----------------------------------
-        //             delete data[userId];
-        //         //-------------------------------------------
-
-
-        //         writeFile(JSON.stringify(data, null, 2), () => {
-        //             res.status(200).send(`users id:${userId} removed`);
-        //         });
-        //     },
-        //         true);
-        // }
         if (!req.params["id"]) {
 
             res.status(404).json({ errors });
@@ -373,18 +338,9 @@ module.exports = {
         else {
 
             const userId = req.params["id"];
-            if (req.body == undefined) {
-                console.log("in the general delete")
-                // const tour = new Tour(req.body);
-                // tour.remove({"id": req.body.id});
-                await Tour.findOneAndDelete({ "id": userId }).then((result) => {
-                    if (result) {
-                        res.status(200).send(`users id:${req.body.id} removed`);
-                    }
-                });
-            }
+        
             //Delete path (You have to send "delete":true in the body)
-            else if(req.body.delete === true){
+             if(req.body.delete === true){
                 Tour.updateOne(
                     {"id":userId},
                     {$set: {path: []}}
@@ -397,7 +353,7 @@ module.exports = {
                 ).catch(e => res.status(500).send())
             }
             //Delete one location (You have to send the name and country of the location in the body)
-            else{
+            else if(req.body.name != undefined){
                 Tour.updateOne(
                     { 'id': userId }, 
                     { $pull: { path: {"$and":[{ name: req.body.name },{country:req.body.country} ]}} },
@@ -409,6 +365,13 @@ module.exports = {
                         }
                     }
                 ).catch(e => res.status(500).send())
+            }
+            else{
+                Tour.findOneAndDelete({ "id": userId }).then((result) => {
+                    if (result) {
+                        res.status(200).send(`users id:${req.body.id} removed`);
+                    }
+                });
             }
         }
     }
