@@ -36,8 +36,10 @@ var TourSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    // author: { type: mongoose.Schema.Types.ObjectId, ref: 'Guide',required:true},
-}, { timestamps: true });
+    path:{
+        type: Array,
+    }
+},);
 TourSchema.plugin(id_validator);
 TourSchema.index("completed");
 

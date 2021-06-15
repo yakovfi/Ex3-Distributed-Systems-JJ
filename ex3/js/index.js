@@ -236,8 +236,8 @@ $(document).ready(function () {
         cell1.innerHTML = "<button class= details id=" + id_s + ">Add location </button>" + "<br />"
 
         let delete_all_id = "delete_all_id";
-        // max = objArr[nameId].path.length;
-        while (objArr[nameId].path[countIndex] !== undefined) {
+        
+        while (objArr[nameId].path[countIndex] != undefined) {
             let button = "button" + counter;
             cell1.innerHTML +=
                 "name: " + objArr[nameId].path[countIndex].name + "," + "  country: " + objArr[nameId].path[countIndex].country
@@ -265,7 +265,6 @@ $(document).ready(function () {
             $.ajax();
         });
         return;
-        // $('#myTable2').replaceWith(table);
     }
     function DeletePath(nameID, delete_all_id) {
         tempIndex = objArr[nameID].id;
