@@ -2,43 +2,29 @@ const mongoose = require('mongoose')
 const id_validator = require ('mongoose-id-validator');
 
 var GuideSchema = new mongoose.Schema({
-    name: {
+    Guide_Name: {
         type: String,
         required: true,
         trim: true
     },
-    email: {
+    Guide_Email: {
         type: String,
         required: true,
         trim: true,
-        lowercase: true,
+        lowercase:true,
         validate(value) {
             if (!validator.isEmail(value)) {
                 throw new Error('Email is invalid')
             }
         }
     },
-    password: {
-        type: String,
-        required: true,
-        minlength: 7,
-        trim: true,
-        validate(value) {
-            if (value.toLowerCase().includes('password')) {
-                throw new Error('Password cannot contain "password"')
-            }
-        }
-    },
-    age: {
+    Guide_Cell: {
         type: Number,
-        default: 0,
-        validate(value) {
-            if (value < 0) {
-                throw new Error('Age must be a postive number')
-            }
-        }
-    }
-}, { timestamps: true }
+        required: true,
+        trim: true
+    },
+   
+},
 );
 
 GuideSchema.plugin(id_validator);

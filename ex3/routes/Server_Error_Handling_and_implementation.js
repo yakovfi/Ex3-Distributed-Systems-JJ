@@ -36,7 +36,7 @@ const writeFile = (fileData, callback, filePath = dataPath, encoding = 'utf8') =
 
 module.exports = {
     //READ
-    read_users: function (req, res) {
+    read_Tour: function (req, res) {
 
         // Find all tours
         Tour.find().sort('id').then(Tours => res.send(Tours)
@@ -131,9 +131,9 @@ module.exports = {
     },
 
     // UPDATE
-    update_user: async function (req, res) {
+    update_Tour: async function (req, res) {
 
-        // readFile(data => {
+        let NoneErrors = true;
         if (!req.params["id"]) {
 
             res.status(404).json({ errors });
@@ -179,12 +179,7 @@ module.exports = {
                         }
                     }
                 ).catch(e => res.status(500).send());
-                // data[userId].path.forEach(e => {
-                //     if (e.name == req.body.name && e.country == req.body.country) {
-                //         identical = true;
-                //         return;
-                //     }
-                // });
+
                 if (identical) {
                     res.status(400).send("The location already exists");
                     return;
@@ -287,18 +282,55 @@ module.exports = {
                 }
 
                 if (req.body.start_date) {
+                    await Tour.updateOne(
+                        {
+                            "id": userId,
+                        },
+                        {
+                            "$set": {
+                                "start_date": req.body.start_date
+                            },
+                        }
+                    ).then(
+                        NoneErrors = true
+                    ).catch(e => res.status(500).send());
 
-                    data[userId].start_date = req.body.start_date;
+                    // data[userId].start_date = req.body.start_date;
                 }
 
                 //-----------------------------------
                 if (req.body.price) {
-                    data[userId].price = req.body.price;
+
+                    await Tour.updateOne(
+                        {
+                            "id": userId,
+                        },
+                        {
+                            "$set": {
+                                "price": req.body.price
+                            },
+                        }
+                    ).then(
+                        NoneErrors = true
+                    ).catch(e => res.status(500).send());
+                    // data[userId].price = req.body.price;
                 }
                 //-----------------------------------
                 if (req.body.duration) {
 
-                    data[userId].duration = req.body.duration;
+                    await Tour.updateOne(
+                        {
+                            "id": userId,
+                        },
+                        {
+                            "$set": {
+                                "duration": req.body.duration
+                            },
+                        }
+                    ).then(
+                        NoneErrors = true
+                    ).catch(e => res.status(500).send());
+                    // data[userId].duration = req.body.duration;
 
                 }
                 if (req.body.guide) {
@@ -323,11 +355,14 @@ module.exports = {
             // });
 
         }
+        if (NoneErrors) {
+            res.status(200).send("All the changes have been applied");
+        }
     },
     // true);
     // },
     // DELETE
-    delete_user: async function (req, res) {
+    delete_Tour: async function (req, res) {
 
         if (!req.params["id"]) {
 
@@ -338,12 +373,12 @@ module.exports = {
         else {
 
             const userId = req.params["id"];
-        
+
             //Delete path (You have to send "delete":true in the body)
-             if(req.body.delete === true){
+            if (req.body.delete === true) {
                 Tour.updateOne(
-                    {"id":userId},
-                    {$set: {path: []}}
+                    { "id": userId },
+                    { $set: { path: [] } }
                 ).then(
                     (result) => {
                         if (result) {
@@ -353,11 +388,11 @@ module.exports = {
                 ).catch(e => res.status(500).send())
             }
             //Delete one location (You have to send the name and country of the location in the body)
-            else if(req.body.name != undefined){
+            else if (req.body.name != undefined) {
                 Tour.updateOne(
-                    { 'id': userId }, 
-                    { $pull: { path: {"$and":[{ name: req.body.name },{country:req.body.country} ]}} },
-                   
+                    { 'id': userId },
+                    { $pull: { path: { "$and": [{ name: req.body.name }, { country: req.body.country }] } } },
+
                 ).then(
                     (result) => {
                         if (result) {
@@ -366,7 +401,7 @@ module.exports = {
                     }
                 ).catch(e => res.status(500).send())
             }
-            else{
+            else {
                 Tour.findOneAndDelete({ "id": userId }).then((result) => {
                     if (result) {
                         res.status(200).send(`users id:${req.body.id} removed`);

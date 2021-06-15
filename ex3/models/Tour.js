@@ -9,32 +9,27 @@ var TourSchema = new mongoose.Schema({
     },
     start_date: {
         type: String,
-        required: true
+        required: true,
     },
     duration: {
         type: Number,
         required: true,
-        trim: true
+        trim: true,
+        validate(value) {
+            if (value < 0) {
+                throw new Error('Duration cannot be negative')
+            }
+        }
     },
     price: {
         type: Number,
         required: true,
-        trim: true
-    },
-    Guide_Name: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    Guide_Email: {
-        type: String,
-        required: true,
-        trim: true
-    },
-    Guide_Cell: {
-        type: Number,
-        required: true,
-        trim: true
+        trim: true,
+        validate(value) {
+            if (value < 0) {
+                throw new Error('Price cannot be negative')
+            }
+        }
     },
     path:{
         type: Array,
