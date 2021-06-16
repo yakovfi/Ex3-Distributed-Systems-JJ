@@ -108,13 +108,13 @@ table, td , tr {
 
 #myTable2{
     font-size: 15px;
-    margin: 0px;
+    margin: 50px;
     padding: 0px;
     font-family: Pacifico;
     color:#2e2926;
     float: right;
     background-color:#b8d4e9;
-    position: fixed;
+    position: sticky;
     /* top: 20px;
     right: 10px; */
     top: 30%;

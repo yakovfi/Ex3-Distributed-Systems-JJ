@@ -30,7 +30,10 @@ $(document).ready(function () {
       for (let index = 0; index < guideschoices.length; index++) {
         $('#guide').append(guideschoices[index]);
       }
-
+      if(guideschoices.length == 0){
+        alert("There is no guide in the database, please create one before creating a Trip/Tour");
+        location.href = '/main';
+      }
     },
     error: function (err) {
       alert(err);
@@ -85,7 +88,6 @@ $(document).ready(function () {
         "duration": Number($("#Duration").val()),
         "price": Number($("#price").val()),
         "guide": $('#guide').val()
-
       }),
       processData: false,
       // dataType: 'json', // what type of data do we expect back from the server

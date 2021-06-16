@@ -48,12 +48,6 @@ $(document).ready(function () {
                 "Guide_Name": String($("#gname").val()),
                 "Guide_Email": String($("#gemail").val()),
                 "Guide_Cell": Number($("#cellular").val()),
-                // "guide": {
-                //   "name": $('#gname').val(),
-                //   "email": $('#gemail').val(),
-                //   "cellular": $('#gcell').val(),
-                // }
-                // "path": [],
             }),
             processData: false,
             // dataType: 'json', // what type of data do we expect back from the server

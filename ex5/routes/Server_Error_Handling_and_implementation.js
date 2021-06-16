@@ -28,7 +28,7 @@ module.exports = {
         //         }
         let isExist = false;
         //Verify if the tour already exist.
-        let all_the_guides = await Guide.find({ 'Name': { $eq: req.body.Guide_Name } }).then((result) => {
+        let all_the_guides = await Guide.find({ "$and": [{ Guide_Name: req.body.Guide_Name }, { Guide_Email: req.body.Guide_Email }, { Guide_Cell: req.body.Guide_Cell }] }).then((result) => {
 
             if (result.length != 0) {
                 res.status(400).send("Guide already exists !!");
@@ -125,34 +125,6 @@ module.exports = {
                 if (!price_regex.test(req.body.price)) {
                     res.status(400).send("Invalid price field !!");
                     return;
-                }
-            }
-
-            if (propName == "guide") {
-                for (var prop in req.body.guide) {
-
-                    if (prop == "Guide_Name") {
-                        var name_regex = /^([A-Za-z]|[\u0590-\u05fe])*$/;
-                        if (!name_regex.test(req.body.guide.name)) {
-                            res.status(400).send("Invalid guide name field !!");
-                            return;
-                        }
-                    }
-                    if (prop == "Guide_Email") {
-                        let regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-                        if (!regex.test(req.body.guide.email)) {
-                            res.status(400).send("Invalid guide email field");
-                            return;
-                        }
-                    }
-                    if (prop == "Guide_Cell") {
-
-                        let regex = /^[0-9]*$/;
-                        if (!regex.test(req.body.guide.cellular) || req.body.guide.Guide_Cell.length < 7) {
-                            res.status(400).send("Invalid guide cellular field");
-                            return;
-                        }
-                    }
                 }
             }
         }
@@ -271,39 +243,6 @@ module.exports = {
                         }
                     }
 
-                    if (propName == "guide") {
-                        for (var prop in req.body.guide) {
-
-                            if (prop == "name") {
-                                var name_regex = /^^$|([A-Za-z]|[\u0590-\u05fe])*$/;
-                                if (!name_regex.test(req.body.guide.name)) {
-                                    res.status(400).send("Invalid guide name field !!");
-                                    return;
-                                }
-                            }
-                            if (prop == "email") {
-                                let regex = /^^$|[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-                                if (!regex.test(req.body.guide.email)) {
-                                    res.status(400).send("Invalid guide email field");
-                                    return;
-                                }
-                            }
-                            if (prop == "cellular") {
-
-                                let regex = /^^$|[0-9]*$/;
-                                if (req.body.guide.cellular != "" && req.body.guide.cellular.length < 7) {
-                                    res.status(400).send("Invalid guide cellular field");
-                                    return;
-                                }
-                                if (!regex.test(req.body.guide.cellular)) {
-
-                                    res.status(400).send("Invalid guide cellular field");
-                                    return;
-                                }
-                            }
-                        }
-                    }
-
                 }
 
                 let saveKeyGuide = [];
@@ -312,6 +251,22 @@ module.exports = {
                 for (var prop in req.body.guide) {
                     saveKeyGuide[i] = prop;
                     i++;
+                }
+
+                if (req.body.guide) {
+                    await Tour.updateOne(
+                        {
+                            "id": userId,
+                        },
+                        {
+                            "$set": {
+                                "guide": req.body.guide
+                            },
+                        }
+                    ).then(
+                        NoneErrors = true
+                    ).catch(e => res.status(500).send());
+
                 }
 
                 if (req.body.start_date) {
@@ -327,8 +282,6 @@ module.exports = {
                     ).then(
                         NoneErrors = true
                     ).catch(e => res.status(500).send());
-
-                    // data[userId].start_date = req.body.start_date;
                 }
 
                 //-----------------------------------

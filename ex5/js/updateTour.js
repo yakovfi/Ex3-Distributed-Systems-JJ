@@ -1,3 +1,11 @@
+let keys = [];
+let obj = {};
+let idHystory = [];
+let saveKey;
+let indexOfRowTable = 0;
+let j = 0;
+let objArr = [];
+let if_showing_trackTable = false;
 
 $(document).ready(function () {
     $("form[name='user_form']").validate({
@@ -28,6 +36,47 @@ $(document).ready(function () {
         }
     });
 
+    $.ajax({
+        url: "/guide",
+        type: 'GET',
+        success: function (result) {
+            for (const [key, value] of Object.entries(result)) {
+                saveKey = key;
+                keys[j] = saveKey;
+                j++;
+            }
+            createObjectsArray(result);
+
+            let guideschoices = [];
+            let i = 0;
+            objArr.forEach(e => {
+
+                let guide = "<option value=" + e._id + ">" + e.Guide_Name + "</option>";
+                guideschoices[i] = guide;
+                i++;
+            });
+            for (let index = 0; index < guideschoices.length; index++) {
+                $('#guide').append(guideschoices[index]);
+            }
+
+        },
+        error: function (err) {
+            alert(err);
+        }
+    });
+
+    function createObjectsArray(res) {
+        for (let i = 0; i < keys.length; i++) {
+            let tempArr = keys[i]
+            objArr[i] = res[tempArr];
+        }
+    }
+
+
+
+
+
+
     let this_page_url = window.location.href;
     let url_array = this_page_url.split("/");
     let params_array = url_array[url_array.length - 1].split("=");
@@ -43,11 +92,7 @@ $(document).ready(function () {
             "start_date": $("#start_date").val(),
             "duration": Number($("#Duration").val()),
             "price": Number($("#price").val()),
-            "guide": {
-                "name": $('#gname').val(),
-                "email": $('#gemail').val(),
-                "cellular": $('#gcell').val(),
-            }
+            "guide": $('#guide').val()
         })
 
 

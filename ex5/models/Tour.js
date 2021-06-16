@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
 const id_validator = require('mongoose-id-validator');
+const validator = require('validator');
 
 var TourSchema = new mongoose.Schema({
     id: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        validate(value){
+            if(!validator.isAlpha(value)){
+                throw new Error('Guide Name is invalid')
+            }
+        }
     },
     start_date: {
         type: String,

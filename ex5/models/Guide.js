@@ -6,7 +6,12 @@ var GuideSchema = new mongoose.Schema({
     Guide_Name: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        validate(value){
+            if(!validator.isAlpha(value)){
+                throw new Error('Guide Name is invalid')
+            }
+        }
     },
     Guide_Email: {
         type: String,
@@ -22,7 +27,12 @@ var GuideSchema = new mongoose.Schema({
     Guide_Cell: {
         type: Number,
         required: true,
-        trim: true
+        trim: true,
+        validate(value){
+            if(value < 0){
+                throw new Error('Guide Cell is invalid')
+            }
+        }
     },
 
 },
